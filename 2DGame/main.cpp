@@ -1,20 +1,27 @@
 #include <SFML/Graphics.hpp>
+#include "gameManager.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode({ 200, 200 }), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Magenta);
+	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "SFML works!");
+
+	GameManager::StartEverything();
 
 	while (window.isOpen())
 	{
+		// Check for any events
 		while (const std::optional event = window.pollEvent())
 		{
+			// Check for if we wanna close the window
 			if (event->is<sf::Event::Closed>()) window.close();
 		}
 
+		GameManager::UpdateEverything();
+
 		window.clear();
-		window.draw(shape);
+		GameManager::DrawEverything();
 		window.display();
 	}
+
+	GameManager::CleanUpEverything();
 }
