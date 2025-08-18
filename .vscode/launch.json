@@ -1,0 +1,17 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch 2DGame",
+			"type": "cppvsdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/Debug/2DGame.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}/2DGame",
+			"environment": [],
+			"console": "integratedTerminal",
+			"preLaunchTask": "Build 2DGame"
+		}
+	]
+}

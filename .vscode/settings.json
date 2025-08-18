@@ -1,0 +1,38 @@
+{
+	"files.exclude": {
+		"**/.vs": true,
+		"**/Debug": true,
+		"**/Release": true,
+		"**/x64": true,
+		"**/x86": true,
+		"**/bin": true,
+		"**/obj": true,
+		"**/include": true,
+		"**/lib": true,
+		"**/*vcxproj*": true,
+
+		"**/2DGame/2DGame": true,
+	},
+	"search.exclude": {
+		"**/.vs": true,
+		"**/Debug": true,
+		"**/Release": true,
+		"**/x64": true,
+		"**/x86": true,
+		"**/bin": true,
+		"**/obj": true,
+		"**/include": true,
+		"**/lib": true,
+		"**/*vcxproj*": true,
+	},
+	"files.associations": {
+		"iostream": "cpp",
+		"vector": "cpp",
+		"map": "cpp",
+		"xstring": "cpp",
+		"string": "cpp",
+		"functional": "cpp",
+		"optional": "cpp",
+		"memory": "cpp"
+	}
+}
