@@ -1,9 +1,14 @@
 #include "gameManager.h"
 
 std::vector<GameObject*> GameManager::gameObjects;
+Scene* GameManager::activeScene = nullptr;
+bool GameManager::changingScene = false;
 
 void GameManager::UpdateEverything()
 {
+	// The scene has now changed
+	if (changingScene) changingScene = false;
+
 	// Loop over every single game object
 	for (GameObject* object : gameObjects)
 	{
@@ -13,6 +18,11 @@ void GameManager::UpdateEverything()
 
 void GameManager::DrawEverything()
 {
+	// Do not draw if we're changing scene
+	// since we'll be drawing the old scene
+	// (we wanna wait for atleast one update to happen before drawing)
+	if (changingScene) return;
+
 	// Loop over every single game object
 	for (GameObject* object : gameObjects)
 	{
@@ -34,15 +44,31 @@ void GameManager::CleanUpEverything()
 	}
 
 	// Clear the list of objects
-	// to fully erradicate them
+	// to fully eradicate them
 	gameObjects.clear();
+
+	// Finally get rid of the scene
+	// TODO: Maybe move this to the top
+	if (activeScene != nullptr)
+	activeScene->CleanUp();
+	delete activeScene;
+	activeScene = nullptr;
 }
 
+void GameManager::SetScene(Scene* newScene)
+{
+	// Get rid of the old stuff
+	CleanUpEverything();
+
+	// Replace it with the new scene
+	activeScene = newScene;
+	newScene->Start();
+}
 
 
 GameObject* GameManager::GetFromName(std::string name)
 {
-	// Loop over all game obejcts
+	// Loop over all game objects
 	for (GameObject* object : gameObjects)
 	{
 		// Check for if its name matches

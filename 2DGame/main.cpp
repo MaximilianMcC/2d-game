@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "gameManager.h"
 
-#include "player.h"
 #include "utils.h"
+#include "mainMenu.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "john ");
+	// Make the SFML window
+	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "john idk");
 
 	// Delta time setup
 	float deltaTime = 0.0f;
@@ -15,13 +16,12 @@ int main()
 	// Share common stuff
 	Utils::Init(&window, &deltaTime);
 
-	// TODO: Do in a scene class or whatever
-	GameManager::Add(new Player(), "player");
+	// Set the initial scene/entry point
+	GameManager::SetScene(new MainMenu());
 
 	while (window.isOpen())
 	{
-		// Calculate delta time and fps
-		//? Since a pointer was given we don't need to bother updating it
+		// Calculate delta time
 		deltaTime = deltaTimeClock.restart().asSeconds();
 
 		// Check for any events
