@@ -1,6 +1,8 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <string>
+#include "utils.h"
 
 class GameObject
 {

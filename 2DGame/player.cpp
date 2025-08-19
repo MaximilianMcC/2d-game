@@ -2,13 +2,15 @@
 
 void Player::Start()
 {
+	body = sf::RectangleShape({ 100, 100 });
 }
 
 void Player::Update()
 {
-	std::cout << GetName() << std::endl;
+	body.move({ 100 * Utils::GetDeltaTime(), 0 });
 }
 
 void Player::Draw()
 {
+	Utils::GetWindow()->draw(body);
 }

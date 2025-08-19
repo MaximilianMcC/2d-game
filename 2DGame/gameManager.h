@@ -15,6 +15,5 @@ public:
 	static void CleanUpEverything();
 
 	static void Add(GameObject* gameObjectToAdd, std::string name = "idk");
-
 	static GameObject* GetFromName(std::string name);
 };
