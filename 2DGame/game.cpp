@@ -1,13 +1,14 @@
 #include "game.h"
-#include <iostream>
+#include "gameManager.h"
+#include "player.h"
 
 void Game::Start()
 {
-    std::cout << "game here" << std::endl;
-
+    // Make the player
+    GameManager::Add(new Player(), "Player");
 }
 
 void Game::CleanUp()
 {
-    std::cout << "game gone" << std::endl;
+    
 }

@@ -1,6 +1,23 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
 
+// Component-wise plussing a value
+template<typename T>
+sf::Vector2<T>& operator+=(sf::Vector2<T>& vector, const T value)
+{
+	vector.x += value;
+	vector.y += value;
+	return vector;
+}
+
+// Component-wise minusing a value
+template<typename T>
+sf::Vector2<T>& operator-=(sf::Vector2<T>& vector, const T value)
+{
+	vector.x -= value;
+	vector.y -= value;
+	return vector;
+}
 
 // Component-wise timesing by a vector
 template<typename T>
