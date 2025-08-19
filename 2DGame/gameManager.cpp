@@ -9,7 +9,9 @@ void GameManager::UpdateEverything()
 	// The scene has now changed
 	if (changingScene) changingScene = false;
 
-	// Loop over every single game object
+	
+	// Update every single thing
+	activeScene->Update();
 	for (GameObject* object : gameObjects)
 	{
 		object->Update();
@@ -23,7 +25,8 @@ void GameManager::DrawEverything()
 	// (we wanna wait for atleast one update to happen before drawing)
 	if (changingScene) return;
 
-	// Loop over every single game object
+	// Draw every single thing
+	activeScene->Draw();
 	for (GameObject* object : gameObjects)
 	{
 		object->Draw();
@@ -47,24 +50,26 @@ void GameManager::CleanUpEverything()
 	// to fully eradicate them
 	gameObjects.clear();
 
-	// Finally get rid of the scene
-	// TODO: Maybe move this to the top
+	// Finally get rid of the scene if
+	// we already have one loaded
 	if (activeScene != nullptr)
-	activeScene->CleanUp();
-	delete activeScene;
-	activeScene = nullptr;
+	{
+		activeScene->CleanUp();
+		delete activeScene;
+		activeScene = nullptr;	
+	}
 }
 
 void GameManager::SetScene(Scene* newScene)
 {
 	// Get rid of the old stuff
+	changingScene = true;
 	CleanUpEverything();
 
 	// Replace it with the new scene
 	activeScene = newScene;
 	newScene->Start();
 }
-
 
 GameObject* GameManager::GetFromName(std::string name)
 {
