@@ -17,11 +17,16 @@ void Player::Update()
 	inputDirection -= (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A));
 	inputDirection += (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D));
 
-	// Update the players velocity
-	float accelerationForce = acceleration * Utils::GetDeltaTime();
-	velocity.x += accelerationForce * inputDirection;
+	// Get the 'percentage' needed to get to the target speed
+	// so we speed up more at the start and less at the end
+	// which feels heaps better than just doing it linearly
+	float targetSpeed = maxSpeed * inputDirection;
+	float remainingVelocity = targetSpeed - velocity.x;
 
-	// If we're not moving then apply friction
+	// Update the velocity
+	velocity.x += (remainingVelocity * accelerationCoefficient) * Utils::GetDeltaTime();
+
+	// If we're not moving then apply friction (linear)
 	if ((inputDirection == 0) && (velocity.x != 0))
 	{
 		// Calculate how much force we'll apply
