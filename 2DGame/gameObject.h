@@ -8,11 +8,11 @@ private:
 	std::string name;
 
 public:
-	void Start() { }
-	void Update() { }
-	void Draw() { }
-	void DrawUi() { }
-	void CleanUp() { }
+	virtual void Start() { }
+	virtual void Update() { }
+	virtual void Draw() { }
+	virtual void DrawUi() { }
+	virtual void CleanUp() { }
 
 	std::string GetName() { return name; }
 	void SetName(std::string newName) { name = newName; }

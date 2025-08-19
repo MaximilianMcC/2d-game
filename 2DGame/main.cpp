@@ -1,11 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "gameManager.h"
 
+#include "player.h"
+
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "john ");
 
-	GameManager::StartEverything();
+	GameManager::Add(new Player(), "player");
 
 	while (window.isOpen())
 	{
