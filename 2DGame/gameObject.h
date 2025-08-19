@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "utils.h"
+#include "numericalVectors.h"
 
 class GameObject
 {
