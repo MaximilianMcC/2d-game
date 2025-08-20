@@ -149,6 +149,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="assetManager.cpp" />
+    <ClCompile Include="forklift.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="gameObject.cpp" />
@@ -159,6 +161,8 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assetManager.h" />
+    <ClInclude Include="forklift.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameManager.h" />
     <ClInclude Include="gameObject.h" />

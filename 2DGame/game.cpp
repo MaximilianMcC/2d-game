@@ -1,14 +1,13 @@
 #include "game.h"
 #include "gameManager.h"
-#include "player.h"
+#include "forklift.h"
 
 void Game::Start()
 {
-    // Make the player
-    GameManager::Add(new Player(), "Player");
+	GameManager::Add(new Forklift(), "Forklift");
 }
 
 void Game::CleanUp()
 {
-    
+	
 }
