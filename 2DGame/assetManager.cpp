@@ -1,5 +1,6 @@
 #include "assetManager.h"
 
+std::map<std::string, sf::SoundBuffer> AssetManager::sounds;
 std::map<std::string, sf::Texture> AssetManager::textures;
 std::map<std::string, sf::Cursor> AssetManager::cursors;
 std::map<std::string, sf::Image> AssetManager::images;
@@ -94,4 +95,32 @@ sf::Font* AssetManager::GetFont(std::string key)
 {
 	// TODO: Check for if they key exists or not
 	return &fonts[key];
+}
+
+
+void AssetManager::LoadSound(std::string key, std::string path)
+{
+	// Load the buffer
+	sf::SoundBuffer buffer;
+	if (buffer.loadFromFile(path) == false)
+	{
+		// If there was an issue then say
+		// TODO: exit 1
+		std::cerr << "Error loading sound at path '" << path << "' (looked in " << std::filesystem::current_path() << ")";
+	}
+
+	// The sound was loaded. Chuck it into
+	// the dictionary so it may be used
+	sounds[key] = buffer;
+}
+
+sf::SoundBuffer* AssetManager::LoadAndGetSound(std::string key, std::string path)
+{
+	LoadSound(key, path);
+	return GetSound(key);
+}
+
+sf::SoundBuffer* AssetManager::GetSound(std::string key)
+{
+	return &sounds[key];
 }

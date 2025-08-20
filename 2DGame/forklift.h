@@ -10,6 +10,10 @@ private:
 	sf::Sprite* wheelLeft;
 	sf::Sprite* wheelRight;
 
+	sf::Sound* hydraulicSound;
+	sf::Sound* engineSound;
+	sf::Sound* reversingSound;
+
 	sf::Vector2f wheelLeftPosition;
 	sf::Vector2f wheelRightPosition;
 

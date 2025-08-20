@@ -18,15 +18,17 @@ Mail : maximilian.mccarthy@mds.ac.nz
 #include "utils.h"
 #include <Windows.h>
 #include <filesystem>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class AssetManager
 {
 private:
-	static std::map<std::string, sf::Texture> textures;
-	static std::map<std::string, sf::Cursor> cursors;
-	static std::map<std::string, sf::Image> images;
-	static std::map<std::string, sf::Font> fonts;
+static std::map<std::string, sf::SoundBuffer> sounds;
+static std::map<std::string, sf::Texture> textures;
+static std::map<std::string, sf::Cursor> cursors;
+static std::map<std::string, sf::Image> images;
+static std::map<std::string, sf::Font> fonts;
 
 public:
 	static void LoadTexture(std::string key, std::string path);
@@ -39,4 +41,8 @@ public:
 
 	static void LoadDefaultFont(std::string key, std::string path);
 	static sf::Font* GetFont(std::string key);
+
+	static void LoadSound(std::string key, std::string path);
+	static sf::SoundBuffer* LoadAndGetSound(std::string key, std::string path);
+	static sf::SoundBuffer* GetSound(std::string key);
 };
