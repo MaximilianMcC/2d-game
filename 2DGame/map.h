@@ -26,6 +26,9 @@ public:
 
 		// Only tiles with attributes are stored
 		std::vector<Tile> Tiles;
+
+		sf::Texture Texture;
+		sf::RenderTexture RenderTexture;
 	};
 
 	void LoadFromFile(std::string mapPath);

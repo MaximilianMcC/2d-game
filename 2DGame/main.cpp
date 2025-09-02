@@ -33,7 +33,7 @@ int main()
 
 		GameManager::UpdateEverything();
 
-		window.clear();
+		window.clear(sf::Color::Magenta);
 		GameManager::DrawEverything();
 		window.display();
 	}

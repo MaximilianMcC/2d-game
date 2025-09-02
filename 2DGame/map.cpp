@@ -17,6 +17,7 @@ void Map::LoadFromFile(std::string mapPath)
 	// Store our current state in the map
 	std::string currentSection;
 	int currentLayerIndex = -1;
+	std::vector<std::string> currentLayerTextures;
 
 	const std::string LAYER_TAG = "LAYER_";
 	const std::string TEXTURE_TAG = "TEXTURES";
@@ -70,7 +71,7 @@ void Map::LoadFromFile(std::string mapPath)
 				// Check for if the current tile has
 				// any attributes or is just a texture
 				std::vector<std::string> attributes = Utils::Split(rawTiles[i], ",");
-				if (attributes.size() != 0)
+				if (attributes.size() <= 1)
 				{
 					// Make a new tile that holds the attributes
 					Tile tile;
@@ -80,6 +81,10 @@ void Map::LoadFromFile(std::string mapPath)
 					// Add the tile to the map/layer
 					layer.Tiles.push_back(tile);
 				}
+
+				// Add the tile to the list of tiles for drawing at the end
+				//? [0] should be the texture
+				currentLayerTextures.push_back(attributes[0]);
 			}
 			
 			// Update the height, and update the width if needed
