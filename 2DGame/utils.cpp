@@ -51,3 +51,11 @@ bool Utils::StringEndsWith(std::string string, std::string ending)
 		ending
 	) == 0);
 }
+
+sf::Vector2f Utils::IndexToCoordinates(int index, int width)
+{
+	return sf::Vector2f(
+		index % width,
+		index / width
+	);
+}
