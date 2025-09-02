@@ -49,11 +49,55 @@ void Map::LoadFromFile(std::string mapPath)
 			continue;
 		}
 
+		// Check for if we're exiting the current section
+		if (currentLine._Starts_with("<"))
+		{
+			// Get the section header (without the `<` at the start)
+			currentSection = currentLine.erase(0, 1);
+
+			// If we're done with a layer then
+			// bake it to its render texture
+			if (currentLine._Starts_with(LAYER_TAG))
+			{
+				Layer& layer = layers[currentLayerIndex];
+
+				// Make a render texture of the needed size
+				// and the tile to draw everything with
+				layer.RenderTexture = sf::RenderTexture(sf::Vector2u(layer.Width, layer.Height));
+				sf::RectangleShape stamp = sf::RectangleShape(TileSize);
+
+				// Loop over every tile in the map
+				std::string previousTexture = "";
+				for (int i = 0; i < layer.Height; i++)
+				{
+					// Get the current texture we have to draw
+					std::string texture = currentLayerTextures[i];
+
+					// Check for if we need to change texture
+					if (texture != previousTexture)
+					{
+						// Update the texture
+						stamp.setTexture(AssetManager::GetTexture(TEXTURE_PREFIX + texture));
+						previousTexture = texture;
+					}
+
+					// Update the tiles position
+					stamp.setPosition(Utils::IndexToCoordinates(i, layer.Width));
+
+					// Draw the tile to the map
+					layer.RenderTexture.draw(stamp);
+				}
+			}
+
+			continue;
+		}
+
 		// Check for what section we're in
+		// TODO: break up all this stuff into different methods
 		if (currentSection == TEXTURE_TAG)
 		{
 			// Split the texture line to extract the
-			// tetxures index and the texture path
+			// textures index and the texture path
 			//? `0 ./test.png`
 			std::vector<std::string> texture = Utils::Split(currentLine, " ");
 
@@ -63,7 +107,7 @@ void Map::LoadFromFile(std::string mapPath)
 		else if (currentSection._Starts_with(LAYER_TAG))
 		{
 			Layer& layer = layers[currentLayerIndex];
-
+			
 			// Loop through all tiles in the current row
 			std::vector<std::string> rawTiles = Utils::Split(currentLine, ";");
 			for (int i = 0; i < rawTiles.size(); i++)

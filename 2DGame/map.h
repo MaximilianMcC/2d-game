@@ -7,6 +7,8 @@
 class Map
 {
 public:
+	sf::Vector2f TileSize = { 32.f, 32.f };
+
 	Map(std::string mapPath)
 	{
 		LoadFromFile(mapPath);
