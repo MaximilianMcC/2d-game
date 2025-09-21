@@ -23,6 +23,17 @@ void AssetManager::LoadTexture(std::string key, std::string path)
 	textures[key] = texture;
 }
 
+void AssetManager::LoadTexture(std::string key, sf::Image& image)
+{
+	// Create the texture from the image
+	sf::Texture texture;
+	texture.loadFromImage(image);
+
+	// The texture was created. Chuck it into
+	// the dictionary so it may be used
+	textures[key] = texture;
+}
+
 // TODO: Like all this is copy pasted (don't)
 sf::Texture* AssetManager::GetTexture(std::string key)
 {
@@ -123,4 +134,16 @@ sf::SoundBuffer* AssetManager::LoadAndGetSound(std::string key, std::string path
 sf::SoundBuffer* AssetManager::GetSound(std::string key)
 {
 	return &sounds[key];
+}
+
+void AssetManager::TextureFromRenderTexture(std::string key, sf::RenderTexture &renderTexture)
+{
+	// Convert the texture to an image to a texture
+	// When this happens we make a new 'copy' of the
+	// texture that is unrelated to the render texture
+	// which means we can delete the render texture
+	// once we've generated the final texture thing
+	sf::Texture renderTextureTexture = renderTexture.getTexture();
+	sf::Image image = renderTextureTexture.copyToImage();
+	LoadTexture(key, image);
 }

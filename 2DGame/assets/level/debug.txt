@@ -1,5 +1,6 @@
 >TEXTURES
 0 ./assets/sprite/whatever.png
+<TEXTURES
 
 >LAYER_main
 0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;

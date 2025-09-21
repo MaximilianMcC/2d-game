@@ -4,10 +4,13 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+#define TAG_TEXTURE "TEXTURES"
+#define TAG_LAYER "LAYER_"
+
 class Map
 {
 public:
-	sf::Vector2f TileSize = { 32.f, 32.f };
+	static const sf::Vector2f TileSize;
 
 	Map(std::string mapPath)
 	{
@@ -16,27 +19,22 @@ public:
 
 	struct Tile
 	{
-		std::vector<std::string> Attributes;
 		sf::Vector2i Position;
-	};
-
-	struct Layer
-	{
-		std::string Name;
-		int Width;
-		int Height;
-
-		// Only tiles with attributes are stored
-		std::vector<Tile> Tiles;
-
-		sf::Texture Texture;
-		sf::RenderTexture RenderTexture;
+		std::vector<std::string> Attributes;
 	};
 
 	void LoadFromFile(std::string mapPath);
 	
 private:
-	const std::string TEXTURE_PREFIX = "MAP_";
 
-	std::vector<Layer> layers;
+	// Stuff for parsing
+	// TODO: Use a struct or even a MapParser class idk
+	static std::vector<std::string> tempTileTextures;
+	static int mapWidth;
+	static int mapHeight;
+	static std::string mapName;
+
+	static void LoadTexture(std::string line);
+	static void ParseTiles(std::string line);
+	static void BakeLayer();
 };

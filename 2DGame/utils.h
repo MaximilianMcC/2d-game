@@ -24,4 +24,5 @@ public:
 	static bool StringEndsWith(std::string string, std::string ending);
 
 	static sf::Vector2f IndexToCoordinates(int index, int width);
+	static int CoordinatesToIndex(sf::Vector2f coordinates, int width);
 };

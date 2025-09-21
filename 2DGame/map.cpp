@@ -1,8 +1,15 @@
+#include "numericalVectors.h"
 #include "map.h"
 #include <iostream>
 #include <fstream>
 #include "utils.h"
 #include "assetManager.h"
+
+const sf::Vector2f Map::TileSize = { 32.f, 32.f };
+std::vector<std::string> Map::tempTileTextures;
+int Map::mapWidth = 0;
+int Map::mapHeight = 0;
+std::string Map::mapName;
 
 void Map::LoadFromFile(std::string mapPath)
 {
@@ -18,124 +25,140 @@ void Map::LoadFromFile(std::string mapPath)
 	std::string currentSection;
 	int currentLayerIndex = -1;
 	std::vector<std::string> currentLayerTextures;
-
-	const std::string LAYER_TAG = "LAYER_";
-	const std::string TEXTURE_TAG = "TEXTURES";
+	mapWidth = -1;
+	mapHeight = -1;
 
 	// Loop through every line
 	std::string currentLine;
 	while (std::getline(mapFile, currentLine))
 	{
-		// Check for if we're entering
-		// a new section thingy
+		// Check for if we're entering a section
 		if (currentLine._Starts_with(">"))
 		{
-			// Get the section header (without the `>` at the start)
-			currentSection = currentLine.erase(0, 1);
-
-			// Check for if we're making a layer
-			if (currentLine._Starts_with(LAYER_TAG))
+			// Figure out what section
+			std::string tagName = Utils::Split(currentLine, ">")[1];
+			if (tagName == TAG_TEXTURE) currentSection = TAG_TEXTURE;
+			else if (tagName == TAG_LAYER)
 			{
-				// Make the layer and set its name
-				//! this might not work (use index 1 or something idk)
-				Layer layer;
-				layer.Name = Utils::Split(currentLine, LAYER_TAG)[0];
-				
-				// Add the layer to the layers list
-				layers.push_back(layer);
-				currentLayerIndex++;
+				//! maybe use [1] instead of [0]
+				currentSection = TAG_LAYER;
+				mapName = Utils::Split(tagName, TAG_LAYER)[0];
 			}
 
 			continue;
 		}
 
-		// Check for if we're exiting the current section
+		// Check for if we're exiting a section
 		if (currentLine._Starts_with("<"))
 		{
-			// Get the section header (without the `<` at the start)
-			currentSection = currentLine.erase(0, 1);
-
-			// If we're done with a layer then
-			// bake it to its render texture
-			if (currentLine._Starts_with(LAYER_TAG))
+			// Figure out what section
+			std::string tagName = Utils::Split(currentLine, ">")[1];
+			if (tagName == TAG_LAYER)
 			{
-				Layer& layer = layers[currentLayerIndex];
+				// Bake the layer
+				BakeLayer();
 
-				// Make a render texture of the needed size
-				// and the tile to draw everything with
-				layer.RenderTexture = sf::RenderTexture(sf::Vector2u(layer.Width, layer.Height));
-				sf::RectangleShape stamp = sf::RectangleShape(TileSize);
-
-				// Loop over every tile in the map
-				std::string previousTexture = "";
-				for (int i = 0; i < layer.Height; i++)
-				{
-					// Get the current texture we have to draw
-					std::string texture = currentLayerTextures[i];
-
-					// Check for if we need to change texture
-					if (texture != previousTexture)
-					{
-						// Update the texture
-						stamp.setTexture(AssetManager::GetTexture(TEXTURE_PREFIX + texture));
-						previousTexture = texture;
-					}
-
-					// Update the tiles position
-					stamp.setPosition(Utils::IndexToCoordinates(i, layer.Width));
-
-					// Draw the tile to the map
-					layer.RenderTexture.draw(stamp);
-				}
+				// Reset everything for a new layer
+				mapWidth = -1;
+				mapHeight = -1;
+				tempTileTextures.clear();
 			}
 
 			continue;
 		}
-
-		// Check for what section we're in
-		// TODO: break up all this stuff into different methods
-		if (currentSection == TEXTURE_TAG)
-		{
-			// Split the texture line to extract the
-			// textures index and the texture path
-			//? `0 ./test.png`
-			std::vector<std::string> texture = Utils::Split(currentLine, " ");
-
-			// Load the texture
-			AssetManager::LoadTexture(TEXTURE_PREFIX + texture[0], texture[1]);
-		}
-		else if (currentSection._Starts_with(LAYER_TAG))
-		{
-			Layer& layer = layers[currentLayerIndex];
-			
-			// Loop through all tiles in the current row
-			std::vector<std::string> rawTiles = Utils::Split(currentLine, ";");
-			for (int i = 0; i < rawTiles.size(); i++)
-			{
-				// Check for if the current tile has
-				// any attributes or is just a texture
-				std::vector<std::string> attributes = Utils::Split(rawTiles[i], ",");
-				if (attributes.size() <= 1)
-				{
-					// Make a new tile that holds the attributes
-					Tile tile;
-					tile.Attributes = attributes;
-					tile.Position = sf::Vector2i(i, layer.Height);
-
-					// Add the tile to the map/layer
-					layer.Tiles.push_back(tile);
-				}
-
-				// Add the tile to the list of tiles for drawing at the end
-				//? [0] should be the texture
-				currentLayerTextures.push_back(attributes[0]);
-			}
-			
-			// Update the height, and update the width if needed
-			layer.Height++;
-			if (rawTiles.size() > layer.Width) layer.Width = rawTiles.size();
-		}
-
 	}
+
+	// We're done with reading the file
 	mapFile.close();
+}
+
+void Map::LoadTexture(std::string line)
+{
+	// Split the texture line to extract the
+	// textures index and the texture path
+	//? `0 ./test.png`
+	std::vector<std::string> texture = Utils::Split(line, " ");
+
+	// Load the texture using its key/index
+	AssetManager::LoadTexture(MAP_TEXTURE_PREFIX + texture[0], texture[1]);
+}
+
+void Map::ParseTiles(std::string line)
+{
+	// Tile format:
+	//? `<TEXTURE_INDEX>;`
+	//? `<TEXTURE_INDEX>,TAG1,TAG2,TAG3;`
+
+	// We are now on a new row
+	mapHeight++;
+
+	// Loop through every tile in the row
+	std::vector<std::string> rawTiles = Utils::Split(line, ";");
+	for (int i = 0; i < rawTiles.size(); i++)
+	{
+		// Extract all the info
+		std::vector<std::string> tileData = Utils::Split(rawTiles[i], ",");
+		mapWidth++;
+
+		// First get the tiles texture
+		std::string textureKey = MAP_TEXTURE_PREFIX + tileData[0];
+		tempTileTextures.push_back(textureKey);
+
+		// Then if the tile has any data handle accordingly
+		if (tileData.size() > 1)
+		{
+			// Make a tile object so we can
+			// store the data that it holds
+			Tile tile;
+			tile.Position = sf::Vector2i(mapWidth, mapHeight);
+
+			// Loop over its attributes and add them
+			//? starting at 1 since we already got the texture
+			std::vector<std::string> attributes;
+			for (int i = 1; i < tileData.size(); i++)
+			{
+				// TODO: Make a method that does this
+				attributes.push_back(tileData[i]);
+			}
+			tile.Attributes = attributes;
+		}
+	}
+}
+
+void Map::BakeLayer()
+{
+	// Make a render texture for us to draw
+	// the map to so we don't have to do 1000
+	// draw calls every frame for zero reason
+	sf::RenderTexture renderTexture(sf::Vector2u(mapWidth, mapHeight));
+
+	// Use a tile to 'stamp' the textures with
+	sf::RectangleShape stamp(TileSize);
+	std::string previousTexture = "i am lowk writing this code on a plane rn";
+
+	// Loop over every tile in the map
+	for (int y = 0; y < mapHeight; y++)
+	{
+		for (int x = 0; x < mapWidth; x++)
+		{
+			// Get the current texture
+			int tileIndex = Utils::CoordinatesToIndex(sf::Vector2f(x, y), mapWidth);
+			std::string currentTextureKey = tempTileTextures[tileIndex];
+
+			// Check for if we need to change the texture
+			if (currentTextureKey != previousTexture)
+			{
+				// Set the new texture
+				stamp.setTexture(AssetManager::GetTexture(currentTextureKey));
+				previousTexture = currentTextureKey; 
+			}
+
+			// Draw the texture on the map
+			stamp.setPosition(sf::Vector2f(x, y) * TileSize);
+			renderTexture.draw(stamp);
+		}	
+	}
+
+	// The map has been drawn. Bake it to a texture
+	AssetManager::TextureFromRenderTexture(MAP_PREFIX + mapName, renderTexture);
 }

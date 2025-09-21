@@ -33,6 +33,7 @@
 		"string": "cpp",
 		"functional": "cpp",
 		"optional": "cpp",
-		"memory": "cpp"
+		"memory": "cpp",
+		"xtree": "cpp"
 	}
 }

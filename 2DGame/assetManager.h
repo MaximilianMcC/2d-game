@@ -21,6 +21,9 @@ Mail : maximilian.mccarthy@mds.ac.nz
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#define MAP_TEXTURE_PREFIX "MAP_TEXTURE_"
+#define MAP_PREFIX "MAP_"
+
 class AssetManager
 {
 private:
@@ -32,6 +35,7 @@ static std::map<std::string, sf::Font> fonts;
 
 public:
 	static void LoadTexture(std::string key, std::string path);
+	static void LoadTexture(std::string key, sf::Image& image);
 	static sf::Texture* LoadAndGetTexture(std::string key, std::string path);
 	static sf::Texture* GetTexture(std::string key);
 	
@@ -45,4 +49,6 @@ public:
 	static void LoadSound(std::string key, std::string path);
 	static sf::SoundBuffer* LoadAndGetSound(std::string key, std::string path);
 	static sf::SoundBuffer* GetSound(std::string key);
+
+	static void TextureFromRenderTexture(std::string key, sf::RenderTexture& renderTexture);
 };

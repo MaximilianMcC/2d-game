@@ -59,3 +59,8 @@ sf::Vector2f Utils::IndexToCoordinates(int index, int width)
 		index / width
 	);
 }
+
+int Utils::CoordinatesToIndex(sf::Vector2f coordinates, int width)
+{
+	return (coordinates.y * width) + coordinates.x;
+}
