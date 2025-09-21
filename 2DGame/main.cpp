@@ -3,11 +3,18 @@
 
 #include "utils.h"
 #include "mainMenu.h"
+#include "logger.h"
 
 int main()
 {
+	Logger::SetLogLevel(Logger::LogLevel::EVERYTHING);
+	Logger::Log("wow", Logger::ERROR);
+	Logger::Log("wow", Logger::WARNING);
+	Logger::Log("wow", Logger::INFO);
+	Logger::Log("wow", Logger::DEBUG);
+
 	// Make the SFML window
-	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "john idk");
+	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "Isambard Kingdom Brunel might just be the worlds coolest name");
 
 	// Delta time setup
 	float deltaTime = 0.0f;
