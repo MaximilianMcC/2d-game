@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <SFML/System/Vector2.hpp>
 
 // Component-wise plussing a value
