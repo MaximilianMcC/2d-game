@@ -9,6 +9,7 @@ public:
 	enum LogLevel
 	{
 		NONE,
+		TODO,
 		DEBUG,
 		WARNING,
 		INFO,
@@ -29,4 +30,5 @@ private:
     static const std::string YELLOW;
     static const std::string WHITE;
     static const std::string BROWN;
+    static const std::string ORANGE;
 };

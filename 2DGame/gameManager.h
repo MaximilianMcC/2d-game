@@ -4,6 +4,7 @@
 #include <map>
 #include "gameObject.h"
 #include "scene.h"
+#include "logger.h"
 
 class GameManager
 {

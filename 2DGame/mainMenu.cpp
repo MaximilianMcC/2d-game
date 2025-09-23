@@ -5,7 +5,6 @@
 
 void MainMenu::Start()
 {
-	std::cout << "kia ora please make a main menu ok thanks ka pai" << std::endl;
+	Logger::Log("kia ora please make a main menu ok thanks ka pai", Logger::TODO);
 	GameManager::SetScene(new Game());
-
 }

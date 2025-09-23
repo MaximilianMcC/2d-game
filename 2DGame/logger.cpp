@@ -9,6 +9,7 @@ const std::string Logger::RED = "\033[31m";
 const std::string Logger::YELLOW = "\033[33m";
 const std::string Logger::WHITE = "\033[97m";
 const std::string Logger::BROWN = "\033[38;5;94m";
+const std::string Logger::ORANGE = "\033[38;5;208m";
 
 void Logger::SetLogLevel(LogLevel level)
 {
@@ -39,6 +40,9 @@ void Logger::Log(std::string text, LogLevel level)
 	
 	case DEBUG:
 		log += BROWN + "D";
+		break;
+	case TODO:
+		log += ORANGE + "/";
 		break;
 	}
 	log += LIGHT_GRAY + "]" + RESET + WHITE;
