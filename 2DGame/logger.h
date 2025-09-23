@@ -17,7 +17,7 @@ public:
 	};
 
 	static void SetLogLevel(LogLevel level);
-	static void Log(std::string text, LogLevel level = INFO);
+	static void Log(std::string text, LogLevel level = DEBUG);
 
 private:
 	static LogLevel currentLogLevel;
