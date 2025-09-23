@@ -18,7 +18,7 @@ void Logger::SetLogLevel(LogLevel level)
 void Logger::Log(std::string text, LogLevel level)
 {
 	// Check for if we're permitted to show the log
-	if (level > currentLogLevel) return;
+	if (level < currentLogLevel) return;
 	std::string log;
 
 	// Make the level prefix
@@ -33,7 +33,7 @@ void Logger::Log(std::string text, LogLevel level)
 		log += BLUE + "?";
 		break;
 
-	case ERROR:
+	case CRITICAL:
 		log += RED + "!";
 		break;
 	

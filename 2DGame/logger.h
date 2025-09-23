@@ -12,7 +12,7 @@ public:
 		DEBUG,
 		WARNING,
 		INFO,
-		ERROR,
+		CRITICAL,
 		EVERYTHING
 	};
 
