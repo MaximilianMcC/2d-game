@@ -4,8 +4,16 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#define TAG_TEXTURE "TEXTURES"
-#define TAG_LAYER "LAYER_"
+#define SECTION_TEXTURES_KEY "TEXTURES"
+#define SECTION_TILES_KEY "TILES"
+#define SECTION_MAP_KEY "MAP"
+
+struct Tile
+{
+	std::string Key;
+	std::string TextureKey;
+	std::vector<std::string> Tags;
+};
 
 class Map
 {
@@ -17,24 +25,21 @@ public:
 		LoadFromFile(mapPath);
 	}
 
-	struct Tile
-	{
-		sf::Vector2i Position;
-		std::vector<std::string> Attributes;
-	};
-
 	void LoadFromFile(std::string mapPath);
 	
 private:
 
 	// Stuff for parsing
 	// TODO: Use a struct or even a MapParser class idk
-	static std::vector<std::string> tempTileTextures;
-	static int mapWidth;
-	static int mapHeight;
-	static std::string mapName;
+	int mapWidth;
+	int mapHeight;
+	std::string mapName;
 
-	static void LoadTexture(std::string line);
-	static void ParseTiles(std::string line);
-	static void BakeLayer();
+	std::vector<Tile> tileTypes;
+
+	bool EnteredSection(std::string line, std::string& sectionKeeper);
+	void LoadTexture(std::string line);
+	void RegisterTile(std::string line);
+	void LoadMapData(std::string line);
+	void BakeLayer();
 };
