@@ -32,6 +32,9 @@ std::vector<std::string> Utils::Split(std::string string, std::string delimiter)
 	// list of split things if we've already
 	// found more than one split
 	if (splitString.size() != 0) splitString.push_back(currentToken);
+
+	// If there was nothing then return the whole string
+	if (splitString.size() == 0) splitString.push_back(string);
  
 	// Give back the string
 	return splitString;
@@ -62,5 +65,5 @@ sf::Vector2f Utils::IndexToCoordinates(int index, int width)
 
 int Utils::CoordinatesToIndex(sf::Vector2f coordinates, int width)
 {
-	return (coordinates.y * width) + coordinates.x;
+    return static_cast<int>(coordinates.y) * width + static_cast<int>(coordinates.x);
 }
