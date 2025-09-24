@@ -51,3 +51,13 @@ void Logger::Log(std::string text, LogLevel level)
 	log += " " + text;
 	std::cout << log << std::endl;
 }
+
+// TODO: Use generics
+void Logger::Log(std::vector<std::string> vector, LogLevel level)
+{
+	Log("Array:", level);
+	for (int i = 0; i < vector.size(); i++)
+	{
+		std::cout << LIGHT_GRAY + "   - " + RESET + vector[i] + "\n";
+	}
+}

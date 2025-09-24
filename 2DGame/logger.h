@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 class Logger
 {
@@ -18,7 +19,9 @@ public:
 	};
 
 	static void SetLogLevel(LogLevel level);
+
 	static void Log(std::string text, LogLevel level = DEBUG);
+	static void Log(std::vector<std::string> vector, LogLevel level = DEBUG);
 
 private:
 	static LogLevel currentLogLevel;
