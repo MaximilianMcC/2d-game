@@ -50,5 +50,5 @@ public:
 	static sf::SoundBuffer* LoadAndGetSound(std::string key, std::string path);
 	static sf::SoundBuffer* GetSound(std::string key);
 
-	static void TextureFromRenderTexture(std::string key, sf::RenderTexture& renderTexture);
+	static void LoadTextureFromRenderTexture(std::string key, sf::RenderTexture& renderTexture);
 };

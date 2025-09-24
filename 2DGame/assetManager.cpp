@@ -136,7 +136,7 @@ sf::SoundBuffer* AssetManager::GetSound(std::string key)
 	return &sounds[key];
 }
 
-void AssetManager::TextureFromRenderTexture(std::string key, sf::RenderTexture &renderTexture)
+void AssetManager::LoadTextureFromRenderTexture(std::string key, sf::RenderTexture &renderTexture)
 {
 	// Convert the texture to an image to a texture
 	// When this happens we make a new 'copy' of the

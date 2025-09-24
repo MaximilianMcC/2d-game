@@ -23,6 +23,6 @@ public:
 	static std::vector<std::string> Split(std::string string, std::string delimiter);
 	static bool StringEndsWith(std::string string, std::string ending);
 
-	static sf::Vector2f IndexToCoordinates(int index, int width);
+	static sf::Vector2f CoordinatesFromIndex(int index, int width);
 	static int CoordinatesToIndex(sf::Vector2f coordinates, int width);
 };
