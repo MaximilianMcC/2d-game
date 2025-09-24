@@ -31,11 +31,13 @@ private:
 
 	// Stuff for parsing
 	// TODO: Use a struct or even a MapParser class idk
-	int mapWidth;
-	int mapHeight;
+	// TODO: No -1
+	int mapWidth = 0;
+	int mapHeight = -1;
 	std::string mapName;
 
-	std::vector<Tile> tileTypes;
+	std::vector<Tile> tileTypePrefabs;
+	std::vector<Tile> mapTiles;
 
 	bool EnteredSection(std::string line, std::string& sectionKeeper);
 	void LoadTexture(std::string line);

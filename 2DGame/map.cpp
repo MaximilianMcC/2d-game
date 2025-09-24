@@ -5,6 +5,7 @@
 #include "utils.h"
 #include "assetManager.h"
 #include "logger.h"
+#include <algorithm>
 
 const sf::Vector2f Map::TileSize = { 32.f, 32.f };
 
@@ -27,8 +28,9 @@ void Map::LoadFromFile(std::string mapPath)
 	std::string currentLine;
 	while (std::getline(mapFile, currentLine))
 	{
-		// If we're looking at a comment then skip the line
+		// If we're looking at a comment or nothing then skip the line
 		if (currentLine._Starts_with("//")) continue;
+		if (currentLine.empty() == true) continue;
 
 		// Check for if we're entering a section. If we
 		// have then move to the next line since there
@@ -40,6 +42,9 @@ void Map::LoadFromFile(std::string mapPath)
 
 		// Check for if we're registering a tile
 		if (section == SECTION_TILES_KEY) RegisterTile(currentLine);
+
+		// Check for if we're building the actual map
+		if (section == SECTION_MAP_KEY) LoadMapData(currentLine);
 	}
 
 	// We're done with reading the file
@@ -88,13 +93,33 @@ void Map::RegisterTile(std::string line)
 		data[1],
 		tags
 	};
-	tileTypes.push_back(tile);
+	tileTypePrefabs.push_back(tile);
 	Logger::Log("Registered tile " + tile.Key + " with texture " + tile.TextureKey + " and " + std::to_string(tile.Tags.size()) + " tags");
 }
 
 void Map::LoadMapData(std::string line)
 {
+	// Extract the entire row of tiles
+	std::vector<std::string> tiles = Utils::Split(line, ",");
+
+	// Update the size of the map (dynamic as we read it)
+	if (tiles.size() > mapWidth) mapWidth = tiles.size();
+	mapHeight++;
+
+	// Loop over each tile
+	for (int i = 0; i < std::min((int)tiles.size(), mapWidth); i++)
+	{
+		// Find the tile we're after
+		// TODO: Store the tiles in a dictionary instead of list
+		Tile tile;
+		for (int j = 0; j < tileTypePrefabs.size(); j++)
+		{
+			if (tileTypePrefabs[j].Key == tiles[i]) tile = tileTypePrefabs[j];
+		}
 		
+		// Add it to the map
+		mapTiles.push_back(tile);
+	}
 }
 
 void Map::BakeLayer()
