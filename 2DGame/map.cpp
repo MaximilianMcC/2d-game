@@ -71,7 +71,23 @@ int Map::GetMapLength()
 	return mapWidth * mapHeight;
 }
 
-bool Map::EnteredSection(std::string line, std::string& sectionKeeper)
+sf::Texture *Map::GetMapTexture()
+{
+    return AssetManager::GetTexture(GetTextureKey());
+}
+
+void Map::Draw()
+{
+	// Utils::GetWindow()->draw(GetMapTexture());
+	// TODO: make rectangle then put texture on it then draw that
+}
+
+std::string Map::GetTextureKey()
+{
+	return MAP_TEXTURE_PREFIX + mapName;
+}
+
+bool Map::EnteredSection(std::string line, std::string &sectionKeeper)
 {
 	// Check for if we're entering a section
 	if (line._Starts_with(">") == false) return false;
@@ -110,7 +126,7 @@ void Map::RegisterTile(std::string line)
 	// Make, then register the tile
 	Tile tile = {
 		data[0],
-		data[1],
+		MAP_TEXTURE_PREFIX + data[1],
 		tags
 	};
 	tileTypePrefabs.push_back(tile);
@@ -171,14 +187,16 @@ void Map::BakeMap()
 			// Set the texture
 			stamp.setTexture(AssetManager::GetTexture(tileTextureKey));
 			currentTextureKey = tileTextureKey;
+			Logger::Log("using tile " + tileTextureKey, Logger::CRITICAL);
 		}
 
 		// Add the tile to the map
-		stamp.setPosition(Utils::CoordinatesFromIndex(i, mapWidth) * TileSize.x);
+		stamp.setPosition(Utils::CoordinatesFromIndex(i, mapWidth) * TileSize);
 		renderTexture.draw(stamp);
 	}
 
 	// Bake the entire map to a texture
+	renderTexture.display();
 	AssetManager::LoadTextureFromRenderTexture(MAP_TEXTURE_PREFIX + mapName, renderTexture);
 	Logger::Log("Baked map to texture");
 }

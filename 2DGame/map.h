@@ -29,18 +29,23 @@ public:
 	void LoadFromFile(std::string mapPath);
 	Tile GetTile(sf::Vector2f coordinates);
 	int GetMapLength();
+	sf::Texture* GetMapTexture();
 	
+	void Draw();
+
 private:
 
 	// Stuff for parsing
 	// TODO: Use a struct or even a MapParser class idk
 	// TODO: No -1
 	int mapWidth = 0;
-	int mapHeight = -1;
+	int mapHeight = 0;
 	std::string mapName;
 
 	std::vector<Tile> tileTypePrefabs;
 	std::vector<Tile> mapTiles;
+
+	std::string GetTextureKey();
 
 	bool EnteredSection(std::string line, std::string& sectionKeeper);
 	void LoadTexture(std::string line);
