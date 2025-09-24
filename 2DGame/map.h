@@ -7,6 +7,7 @@
 #define SECTION_TEXTURES_KEY "TEXTURES"
 #define SECTION_TILES_KEY "TILES"
 #define SECTION_MAP_KEY "MAP"
+#define SECTION_NAME_KEY "NAME"
 
 struct Tile
 {
@@ -26,6 +27,8 @@ public:
 	}
 
 	void LoadFromFile(std::string mapPath);
+	Tile GetTile(sf::Vector2f coordinates);
+	int GetMapLength();
 	
 private:
 
@@ -43,5 +46,6 @@ private:
 	void LoadTexture(std::string line);
 	void RegisterTile(std::string line);
 	void LoadMapData(std::string line);
-	void BakeLayer();
+	void SetName(std::string line);
+	void BakeMap();
 };

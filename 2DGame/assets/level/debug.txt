@@ -4,8 +4,15 @@
 2 C:/test.png
 
 >TILES
-KEY TEXTURE_INDEX TAG1,TAG2,TAG3
-a 0 0 // 0 means no collision
+// KEY TEXTURE_INDEX TAG1,TAG2,TAG3
+test1 0 1,2,3
+test2 1 tag
+test3 2
 
 >MAP
-a
+test1,test2,test2,test3
+test1,test3,test1,test2
+test2,test3,test3,test3
+
+>NAME
+this is the name of the map

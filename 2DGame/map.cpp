@@ -38,6 +38,7 @@ void Map::LoadFromFile(std::string mapPath)
 		if (EnteredSection(currentLine, section)) continue;
 
 		// Check for if we're loading a texture
+		// TODO: Use switch for all this
 		if (section == SECTION_TEXTURES_KEY) LoadTexture(currentLine);
 
 		// Check for if we're registering a tile
@@ -45,10 +46,29 @@ void Map::LoadFromFile(std::string mapPath)
 
 		// Check for if we're building the actual map
 		if (section == SECTION_MAP_KEY) LoadMapData(currentLine);
+
+		// Check for if we're done reading the map and
+		// save it with a name and whatnot
+		if (section == SECTION_NAME_KEY)
+		{
+			SetName(currentLine);
+			BakeMap();
+		}
 	}
 
 	// We're done with reading the file
 	mapFile.close();
+	Logger::Log("Loaded " + mapName + " thats " + std::to_string(mapWidth) + "x" + std::to_string(mapHeight) + " tiles.");
+}
+
+Tile Map::GetTile(sf::Vector2f coordinates)
+{
+    return mapTiles[Utils::CoordinatesToIndex(coordinates, mapWidth)];
+}
+
+int Map::GetMapLength()
+{
+	return mapWidth * mapHeight;
 }
 
 bool Map::EnteredSection(std::string line, std::string& sectionKeeper)
@@ -122,7 +142,43 @@ void Map::LoadMapData(std::string line)
 	}
 }
 
-void Map::BakeLayer()
+void Map::SetName(std::string line)
 {
+	// erhm
+	mapName = line;
+	Logger::Log("Loaded all data for map: " + mapName);
+}
 
+void Map::BakeMap()
+{
+	// Make the render texture to be baked
+	sf::Vector2u mapSize = static_cast<sf::Vector2u>(TileSize * sf::Vector2f(mapWidth, mapHeight));
+	sf::RenderTexture renderTexture = sf::RenderTexture(mapSize);
+
+	// Make the 'stamp' for drawing with
+	sf::RectangleShape stamp = sf::RectangleShape(TileSize);
+	std::string currentTextureKey;
+
+	// Loop over every tile in the map
+	for (int i = 0; i < GetMapLength(); i++)
+	{
+		// Get the tile we're gonna draw rn
+		std::string& tileTextureKey = mapTiles[i].TextureKey;
+
+		// Check for if we need to change texture
+		if (tileTextureKey != currentTextureKey)
+		{
+			// Set the texture
+			stamp.setTexture(AssetManager::GetTexture(tileTextureKey));
+			currentTextureKey = tileTextureKey;
+		}
+
+		// Add the tile to the map
+		stamp.setPosition(Utils::CoordinatesFromIndex(i, mapWidth) * TileSize.x);
+		renderTexture.draw(stamp);
+	}
+
+	// Bake the entire map to a texture
+	AssetManager::LoadTextureFromRenderTexture(MAP_TEXTURE_PREFIX + mapName, renderTexture);
+	Logger::Log("Baked map to texture");
 }
