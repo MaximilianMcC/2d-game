@@ -27,7 +27,13 @@ public:
 	}
 
 	void LoadFromFile(std::string mapPath);
+
 	Tile GetTile(sf::Vector2f coordinates);
+	sf::Vector2f NearestTileCoordinateFromPosition(sf::Vector2f position);
+	
+	// The radius is a square btw (not a circle)
+	std::vector<Tile> GetNeighbours(sf::Vector2f centreTile, int radius);
+
 	int GetMapLength();
 	sf::Texture* GetMapTexture();
 	

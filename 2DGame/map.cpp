@@ -63,7 +63,49 @@ void Map::LoadFromFile(std::string mapPath)
 
 Tile Map::GetTile(sf::Vector2f coordinates)
 {
-    return mapTiles[Utils::CoordinatesToIndex(coordinates, mapWidth)];
+	return mapTiles[Utils::CoordinatesToIndex(coordinates, mapWidth)];
+}
+
+sf::Vector2f Map::NearestTileCoordinateFromPosition(sf::Vector2f position)
+{
+	// TODO: Check for out of bounds
+	float x = std::round(position.x / TileSize.x) * TileSize.x;
+	float y = std::round(position.y / TileSize.y) * TileSize.y;
+
+	return sf::Vector2f(x, y);
+}
+
+std::vector<Tile> Map::GetNeighbours(sf::Vector2f centreTile, int radius)
+{
+	std::vector<Tile> tiles;
+
+	// Check for if we're out of bounds
+	if (
+		centreTile.x + radius > mapWidth ||
+		centreTile.y + radius > mapHeight ||
+		centreTile.x - radius < 0 ||
+		centreTile.y - radius < 0
+	) return tiles;
+
+	// Get the tile bounds for the x
+	int minX = centreTile.x - radius;
+	int maxX = centreTile.x + radius;
+
+	// Get the tile bounds for the y
+	int minY = centreTile.y - radius;
+	int maxY = centreTile.y + radius;
+
+	// Add all the tiles to the list
+	for (int y = minY; y < maxY; y++)
+	{
+		for (int x = minX; x < maxX; x++)
+		{
+			tiles.push_back(GetTile(sf::Vector2f(x, y)));
+		}
+	}
+	
+	// Give back all the tiles within the radius
+	return tiles;
 }
 
 int Map::GetMapLength()
@@ -73,7 +115,7 @@ int Map::GetMapLength()
 
 sf::Texture *Map::GetMapTexture()
 {
-    return AssetManager::GetTexture(GetTextureKey());
+	return AssetManager::GetTexture(GetTextureKey());
 }
 
 void Map::Draw()

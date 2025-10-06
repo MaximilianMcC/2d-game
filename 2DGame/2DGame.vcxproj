@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="assetManager.cpp" />
+    <ClCompile Include="collisionHandler.cpp" />
     <ClCompile Include="forklift.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameManager.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assetManager.h" />
+    <ClInclude Include="collisionHandler.h" />
     <ClInclude Include="forklift.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameManager.h" />

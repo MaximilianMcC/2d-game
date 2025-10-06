@@ -9,9 +9,9 @@
 // KEY TEXTURE_INDEX TAG1,TAG2,TAG3
 debug 0
 sky 1
-grass 2
-dirt 3
-stone 4
+grass 2 collision
+dirt 3 collision
+stone 4 collision
 
 >MAP
 sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky
