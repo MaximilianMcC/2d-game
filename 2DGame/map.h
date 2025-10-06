@@ -9,11 +9,22 @@
 #define SECTION_MAP_KEY "MAP"
 #define SECTION_NAME_KEY "NAME"
 
-struct Tile
+struct TilePrefab
 {
 	std::string Key;
 	std::string TextureKey;
 	std::vector<std::string> Tags;
+};
+
+struct Tile : TilePrefab
+{
+	sf::Vector2f Position;
+
+	Tile(const TilePrefab& prefab, sf::Vector2f position)
+	: TilePrefab(prefab)
+	{
+		Position = position;
+	}
 };
 
 class Map
@@ -48,8 +59,8 @@ private:
 	int mapHeight = 0;
 	std::string mapName;
 
-	std::vector<Tile> tileTypePrefabs;
-	std::vector<Tile> mapTiles;
+	std::vector<TilePrefab> tileTypePrefabs;
+	std::vector<TilePrefab> mapTiles;
 
 	std::string GetTextureKey();
 

@@ -8,5 +8,5 @@ class CollisionHandler
 public:
 
 	// TODO: Return overlap
-	bool CollisionWithMap(sf::FloatRect thing, Map& map);
+	bool WasCollisionWithMap(sf::FloatRect thing, Map& map);
 };

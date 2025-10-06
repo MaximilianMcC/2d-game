@@ -61,9 +61,13 @@ void Map::LoadFromFile(std::string mapPath)
 	Logger::Log("Loaded " + mapName + " thats " + std::to_string(mapWidth) + "x" + std::to_string(mapHeight) + " tiles.");
 }
 
+// Get a tile (with coordinates as a property)
 Tile Map::GetTile(sf::Vector2f coordinates)
 {
-	return mapTiles[Utils::CoordinatesToIndex(coordinates, mapWidth)];
+	// Add coordinates to the tile
+	// TODO: Prebake this or something idk
+	TilePrefab tileType = mapTiles[Utils::CoordinatesToIndex(coordinates, mapWidth)];
+	return Tile(tileType, coordinates);
 }
 
 sf::Vector2f Map::NearestTileCoordinateFromPosition(sf::Vector2f position)
@@ -166,7 +170,7 @@ void Map::RegisterTile(std::string line)
 	if (data.size() > 2) tags = Utils::Split(data[2], ",");
 
 	// Make, then register the tile
-	Tile tile = {
+	TilePrefab tile = {
 		data[0],
 		MAP_TEXTURE_PREFIX + data[1],
 		tags
@@ -189,7 +193,7 @@ void Map::LoadMapData(std::string line)
 	{
 		// Find the tile we're after
 		// TODO: Store the tiles in a dictionary instead of list
-		Tile tile;
+		TilePrefab tile;
 		for (int j = 0; j < tileTypePrefabs.size(); j++)
 		{
 			if (tileTypePrefabs[j].Key == tiles[i]) tile = tileTypePrefabs[j];
