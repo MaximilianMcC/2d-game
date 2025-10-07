@@ -1,6 +1,25 @@
 #include <SFML/Graphics.hpp>
 #include "utils.h"
 #include "logger.h"
+#include "level.h"
+
+Level level;
+
+void Start()
+{
+	level = Level();
+	level.Load();
+}
+
+void Update()
+{
+	
+}
+
+void Draw()
+{
+	level.Draw();
+}
 
 int main()
 {
@@ -16,6 +35,8 @@ int main()
 	// Share common stuff
 	Utils::Init(&window, &deltaTime);
 
+	Start();
+
 	while (window.isOpen())
 	{
 		// Calculate delta time
@@ -28,7 +49,10 @@ int main()
 			if (event->is<sf::Event::Closed>()) window.close();
 		}
 
+		Update();
+
 		window.clear(sf::Color::Magenta);
+		Draw();
 		window.display();
 	}
 }
