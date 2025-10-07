@@ -150,13 +150,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="assetManager.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="level.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mapObjects.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assetManager.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="level.h" />
     <ClInclude Include="logger.h" />
+    <ClInclude Include="mapObjects.h" />
     <ClInclude Include="numericalVectors.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

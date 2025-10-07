@@ -26,3 +26,12 @@ public:
 	static sf::Vector2f CoordinatesFromIndex(int index, int width);
 	static int CoordinatesToIndex(sf::Vector2f coordinates, int width);
 };
+
+enum Direction
+{
+	//? These numbers might be wrong idk
+	UP = 0,
+	LEFT = 90,
+	DOWN = 180,
+	RIGHT = 360
+};
