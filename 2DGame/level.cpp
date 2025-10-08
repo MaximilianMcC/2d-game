@@ -1,6 +1,7 @@
 #include "level.h"
 #include "assetManager.h"
 #include "numericalVectors.h"
+#include "player.h"
 
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f);
 

@@ -18,6 +18,9 @@ class StaticMapObject : public MapObject
 // Used for stuff that moves via logic
 class DynamicMapObject : public MapObject
 {
+	virtual void Update() { }
+	virtual void Draw() { }
+	virtual void CleanUp() { }
 };
 
 

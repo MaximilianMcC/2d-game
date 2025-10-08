@@ -2,23 +2,34 @@
 #include "utils.h"
 #include "logger.h"
 #include "level.h"
+#include "player.h"
 
 Level level;
+Player* player;
 
 void Start()
 {
 	level = Level();
 	level.Load();
+
+	player = new Player(sf::Vector2f(0.f, 0.f));
 }
 
 void Update()
 {
-	
+	player->Update();
 }
 
 void Draw()
 {
 	level.Draw();
+	player->Draw();
+}
+
+void CleanUp()
+{
+	delete player;
+	player = nullptr;
 }
 
 int main()
@@ -55,4 +66,6 @@ int main()
 		Draw();
 		window.display();
 	}
+	
+	CleanUp();
 }
