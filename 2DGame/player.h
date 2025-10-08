@@ -15,4 +15,6 @@ public:
 	void Update() override;
 	void Draw() override;
 	void CleanUp() override;
+
+	void SolveCollision(sf::FloatRect& newHitbox, sf::Vector2f direction);
 };
