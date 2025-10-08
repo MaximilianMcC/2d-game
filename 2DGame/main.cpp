@@ -12,7 +12,7 @@ void Start()
 	level = Level();
 	level.Load();
 
-	player = new Player(sf::Vector2f(0.f, 0.f));
+	player = new Player(sf::Vector2f(50.f, 0.f));
 }
 
 void Update()
@@ -66,6 +66,6 @@ int main()
 		Draw();
 		window.display();
 	}
-	
+
 	CleanUp();
 }

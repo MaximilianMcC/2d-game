@@ -4,6 +4,7 @@
 #include "player.h"
 
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f);
+std::vector<MapObject*> Level::MapObjects;
 
 //! this whole thing is temp debug
 void Level::Load()
@@ -13,7 +14,7 @@ void Level::Load()
 	AssetManager::LoadTexture("bricks", "./assets/sprite/bricks.png");
 
 	// Add some blocks
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(0, 0), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(1, 0), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(1, 1), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(3, 2), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(3, 4), true));
@@ -21,6 +22,15 @@ void Level::Load()
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(6, 5), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(7, 5), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(8, 5), true));
+
+	// ↑ wall 
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 12), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 13), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 14), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 15), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 16), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 17), true));
 }
 
 // TODO: Take in a camera/view param
@@ -41,25 +51,4 @@ void Level::Unload()
 		MapObjects[i] = nullptr;
 	}
 	MapObjects.clear();
-}
-
-std::optional<sf::FloatRect> Level::GetCollision(MapObject &thing)
-{
-	// Loop over all map objects
-	std::optional<sf::FloatRect> collision;
-	for (int i = 0; i < MapObjects.size(); i++)
-	{
-		// Check for if we allow collision
-		if (MapObjects[i]->HasCollision == false) continue;
-
-		// We cannot collide with ourself
-		if (MapObjects[i] == &thing) continue;
-
-		// Get the actual collision
-		collision = thing.Hitbox.findIntersection(MapObjects[i]->Hitbox);
-		if (collision.has_value()) break;
-	}
-
-	// Give back the float rect thing
-	return collision;
 }

@@ -8,7 +8,6 @@ private:
 	sf::RectangleShape body;
 	
 public:
-	sf::FloatRect Hitbox;
 	float Speed;
 
 	Player(sf::Vector2f spawnPoint);

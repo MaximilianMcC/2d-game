@@ -9,10 +9,9 @@ class Level
 {
 public:
 	static sf::Vector2f TileSize;
-	std::vector<MapObject*> MapObjects;
+	static std::vector<MapObject*> MapObjects;
 
 	void Load();
 	void Draw();
 	void Unload();
-	std::optional<sf::FloatRect> GetCollision(MapObject& thing);
 };
