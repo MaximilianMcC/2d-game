@@ -36,8 +36,16 @@ void CrackedBricks::Update()
 	// Update the timer
 	timer += Utils::GetDeltaTime();
 
+	// Check for if we are currently cracking
 	if (cracked == false)
 	{
+		// Update the texture based on the crack time
+		// TODO: Don't hardcode
+		float crackProgress = timer / timeBeforeBrickFalls;
+		if (crackProgress < 1.f / 3) shape.setTexture(AssetManager::GetTexture("cracked-bricks-1"));
+		else if (crackProgress < 2.f / 3) shape.setTexture(AssetManager::GetTexture("cracked-bricks-2"));
+		else shape.setTexture(AssetManager::GetTexture("cracked-bricks-3"));
+
 		// Check for if the brick has cracked and
 		// needs to begin falling
 		if (timer >= timeBeforeBrickFalls)
@@ -49,6 +57,8 @@ void CrackedBricks::Update()
 			HasCollision = false;			
 		}
 	}
+
+	// We have cracked fallen
 	else
 	{
 		// Respawn if the time is right
