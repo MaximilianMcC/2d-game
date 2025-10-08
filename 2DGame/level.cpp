@@ -3,6 +3,7 @@
 #include "numericalVectors.h"
 #include "player.h"
 #include "crackedBricks.h"
+#include "lava.h"
 
 // sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f);
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f) * 1.5f;
@@ -20,16 +21,19 @@ void Level::Load()
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(0, 10), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(1, 10), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(2, 10), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(3, 10), true));
 
-	// MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(5, 10)));
+	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(5, 10)));
 	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(6, 10)));
-	// MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(7, 10)));
+	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(7, 10)));
 
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(9, 10), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 10), true));
 	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(11, 10), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(12, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(12, 10), true));	
+
+	for (size_t i = 0; i < 11; i++)
+	{
+		MapObjects.push_back(new Lava(TileSize * sf::Vector2f(0 + i, 15)));
+	}
 	
 }
 

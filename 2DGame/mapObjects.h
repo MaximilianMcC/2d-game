@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 class MapObject {
 public:
@@ -35,5 +36,18 @@ private:
 	sf::RectangleShape shape;
 public:
 	Tile(std::string textureKey, sf::Vector2f position, bool hasCollision);
+	void Draw() override;
+};
+
+class AnimatedTile : public StaticMapObject
+{
+private:
+	sf::RectangleShape shape;
+	float timer;
+	float fps;
+	std::vector<std::string> textureKeys;
+	int textureIndex;
+public:
+	AnimatedTile(std::vector<std::string> texturePaths, float animationFps, sf::Vector2f position, bool hasCollision);
 	void Draw() override;
 };
