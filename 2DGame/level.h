@@ -9,6 +9,7 @@ class Level
 {
 public:
 	static sf::Vector2f TileSize;
+	static float Gravity;
 	static std::vector<MapObject*> MapObjects;
 
 	void Load();

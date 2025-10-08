@@ -6,7 +6,17 @@ class Player : public DynamicMapObject
 {
 private:
 	sf::RectangleShape body;
+	bool onTheGroundRn = false;
+	float yVelocity = 0.0f;
 	
+	struct CollisionInfo
+	{
+		bool Left;
+		bool Right;
+		bool Top;
+		bool Bottom;
+	};
+
 public:
 	float Speed;
 
@@ -16,5 +26,5 @@ public:
 	void Draw() override;
 	void CleanUp() override;
 
-	void SolveCollision(sf::FloatRect& newHitbox, sf::Vector2f direction);
+	CollisionInfo SolveCollision(sf::FloatRect& newHitbox, sf::Vector2f direction);
 };

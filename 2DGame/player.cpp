@@ -18,18 +18,34 @@ Player::Player(sf::Vector2f spawnPoint)
 
 void Player::Update()
 {
-	// Get the players direction
+	// Get the players movement direction
 	//! Normalising isn't needed here ngl but good to have it
 	sf::Vector2f direction;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) direction.x--;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) direction.x++;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) direction.y++;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) direction.y--;
 	if (direction.length() != 0) direction = direction.normalized();
 
+	// Apply gravity
+	sf::Vector2f gravitationalVelocity;
+	if (onTheGroundRn == false)
+	{
+		yVelocity += Level::Gravity * Utils::GetDeltaTime();
+		gravitationalVelocity = sf::Vector2f(0.0f, yVelocity);
+	}
+
 	// Calculate the new movement
-	sf::FloatRect newHitbox = sf::FloatRect(Hitbox.position + direction * Speed * Utils::GetDeltaTime(), Hitbox.size);
-	SolveCollision(newHitbox, direction);
+	sf::Vector2f velocity = (direction * Speed) + gravitationalVelocity;
+	sf::FloatRect newHitbox = sf::FloatRect(Hitbox.position + velocity * Utils::GetDeltaTime(), Hitbox.size);
+	CollisionInfo collisionInfo = SolveCollision(newHitbox, velocity);
+
+	// Check for if the player is in the air or not
+	if (collisionInfo.Bottom == true)
+	{
+		// Reset Y velocity
+		yVelocity = 0.0f;
+		onTheGroundRn = true;
+	}
+	else onTheGroundRn = false;
 
 	// Update the actual position
 	Hitbox.position = newHitbox.position;
@@ -47,9 +63,12 @@ void Player::CleanUp()
 }
 
 // TODO: Use the intersection results
-void Player::SolveCollision(sf::FloatRect &newHitbox, sf::Vector2f direction)
+Player::CollisionInfo Player::SolveCollision(sf::FloatRect &newHitbox, sf::Vector2f direction)
 {
-	// Check for collisions
+	// Remember what we've hit
+	CollisionInfo collisionInfo = {};
+
+	// Check for collisions on the X
 	sf::FloatRect newXHitbox = sf::FloatRect(sf::Vector2f(newHitbox.position.x, Hitbox.position.y), Level::TileSize);
 	for (MapObject* thing : Level::MapObjects)
 	{
@@ -62,10 +81,19 @@ void Player::SolveCollision(sf::FloatRect &newHitbox, sf::Vector2f direction)
 		sf::FloatRect collision = potentialCollision.value();
 
 		// Adjust to prevent the actual collision
-		if (direction.x < 0) newXHitbox.position.x = thing->Hitbox.position.x + Level::TileSize.x;
-		if (direction.x > 0) newXHitbox.position.x = thing->Hitbox.position.x - Level::TileSize.x;
+		if (direction.x < 0)
+		{
+			newXHitbox.position.x = thing->Hitbox.position.x + Level::TileSize.x;
+			collisionInfo.Left = true;
+		}
+		if (direction.x > 0)
+		{
+			newXHitbox.position.x = thing->Hitbox.position.x - Level::TileSize.x;
+			collisionInfo.Right = true;
+		}
 	}
 
+	// Check for collisions on the Y
 	sf::FloatRect newYHitbox = sf::FloatRect(sf::Vector2f(Hitbox.position.x, newHitbox.position.y), Level::TileSize);
 	for (MapObject* thing : Level::MapObjects)
 	{
@@ -78,10 +106,21 @@ void Player::SolveCollision(sf::FloatRect &newHitbox, sf::Vector2f direction)
 		sf::FloatRect collision = potentialCollision.value();
 
 		// Adjust to prevent the actual collision
-		if (direction.y < 0) newYHitbox.position.y = thing->Hitbox.position.y + Level::TileSize.y;
-		if (direction.y > 0) newYHitbox.position.y = thing->Hitbox.position.y - Level::TileSize.y;
+		if (direction.y < 0)
+		{
+			newYHitbox.position.y = thing->Hitbox.position.y + Level::TileSize.y;
+			collisionInfo.Top = true;
+		} 
+		if (direction.y > 0)
+		{
+			newYHitbox.position.y = thing->Hitbox.position.y - Level::TileSize.y;
+			collisionInfo.Bottom = true;
+		} 
 	}
 
 	// Make the new hitbox based off the two seprate ones
 	newHitbox.position = sf::Vector2f(newXHitbox.position.x, newYHitbox.position.y);
+
+	// Give back the collision data
+	return collisionInfo;
 }
