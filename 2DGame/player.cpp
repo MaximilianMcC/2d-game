@@ -13,7 +13,9 @@ Player::Player(sf::Vector2f spawnPoint)
 	body.setPosition(Hitbox.position);
 	body.setTexture(AssetManager::LoadAndGetTexture("player", "./assets/sprite/player.png"));
 
+	// TODO: Do this in the H
 	Speed = 250.f;
+	JumpForce = 120.f;
 }
 
 void Player::Update()
@@ -26,22 +28,37 @@ void Player::Update()
 	if (direction.length() != 0) direction = direction.normalized();
 
 	// Apply gravity
-	sf::Vector2f gravitationalVelocity;
 	if (onTheGroundRn == false)
 	{
+		// Add to the velocity value
+		// TODO: Maybe don't times by delta time?
 		yVelocity += Level::Gravity * Utils::GetDeltaTime();
-		gravitationalVelocity = sf::Vector2f(0.0f, yVelocity);
 	}
 
+	// Check for if the player wants to jump
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+	{
+		// No double jumping
+		// TODO: Use guard clause
+		if (onTheGroundRn)
+		{
+			// Apply the jump force in the opposite direction of gravity
+			yVelocity -= JumpForce;
+		}
+	}
+
+	// If we're in the air then half horizontal speed
+	float speed = onTheGroundRn ? Speed : Speed / 2;
+
 	// Calculate the new movement
-	sf::Vector2f velocity = (direction * Speed) + gravitationalVelocity;
+	sf::Vector2f velocity = (direction * speed) + sf::Vector2f(0.0f, yVelocity);
 	sf::FloatRect newHitbox = sf::FloatRect(Hitbox.position + velocity * Utils::GetDeltaTime(), Hitbox.size);
 	CollisionInfo collisionInfo = SolveCollision(newHitbox, velocity);
 
 	// Check for if the player is in the air or not
 	if (collisionInfo.Bottom == true)
 	{
-		// Reset Y velocity
+		// Reset Y velocity (newten 5rd lore or something)
 		yVelocity = 0.0f;
 		onTheGroundRn = true;
 	}

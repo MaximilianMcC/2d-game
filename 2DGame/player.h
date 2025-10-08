@@ -19,6 +19,7 @@ private:
 
 public:
 	float Speed;
+	float JumpForce;
 
 	Player(sf::Vector2f spawnPoint);
 

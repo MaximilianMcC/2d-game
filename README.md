@@ -11,7 +11,7 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 # Checklist
 ## Basic Features
 - [x] Player can move left/right with Arrow keys **and** A/D keys  
-- [ ] Player can jump with Space / W / Up Arrow  
+- [x] Player can jump with Space / W / Up Arrow  
 - [ ] Player can drop through certain platforms with S / Down Arrow  
 - [ ] At least **two types of platforms** (e.g., ground + moving/fall-through)  
 - [ ] At least **two enemies/obstacles**:
