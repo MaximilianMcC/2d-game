@@ -15,6 +15,9 @@ private:
 		bool Right;
 		bool Top;
 		bool Bottom;
+
+		//? there might be two (one for x, one for y)
+		MapObject* Victim;
 	};
 
 public:
@@ -28,4 +31,5 @@ public:
 	void CleanUp() override;
 
 	CollisionInfo SolveCollision(sf::FloatRect& newHitbox, sf::Vector2f direction);
+	CollisionInfo Move();
 };

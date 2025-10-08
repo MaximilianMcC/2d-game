@@ -1,6 +1,7 @@
 #include "player.h"
 #include "level.h"
 #include "assetManager.h"
+#include "crackedBricks.h"
 
 Player::Player(sf::Vector2f spawnPoint)
 {
@@ -19,6 +20,102 @@ Player::Player(sf::Vector2f spawnPoint)
 }
 
 void Player::Update()
+{
+	// Let the player move around
+	CollisionInfo collision = Move();
+
+	// Check for if we are ontop of a falling brick
+	// TODO: Do this in the brick class, not the player
+	CrackedBricks* crackedBrick = dynamic_cast<CrackedBricks*>(collision.Victim);
+	if (crackedBrick != nullptr && collision.Bottom)
+	{
+		printf("on a cracked brick");
+	}
+}
+
+void Player::Draw()
+{
+	Utils::GetWindow()->draw(body);
+}
+
+void Player::CleanUp()
+{
+	
+}
+
+// TODO: Use the intersection results
+Player::CollisionInfo Player::SolveCollision(sf::FloatRect &newHitbox, sf::Vector2f direction)
+{
+	// Remember what we've hit
+	CollisionInfo collisionInfo = {};
+	collisionInfo.Victim = nullptr;
+
+	// Check for collisions on the X
+	sf::FloatRect newXHitbox = sf::FloatRect(sf::Vector2f(newHitbox.position.x, Hitbox.position.y), Level::TileSize);
+	for (MapObject* thing : Level::MapObjects)
+	{
+		// Check for if the thingy has a collider
+		if (thing->HasCollision == false) continue;
+
+		// Check for collision
+		std::optional<sf::FloatRect> potentialCollision = newXHitbox.findIntersection(thing->Hitbox);
+		if (potentialCollision.has_value() == false) continue;
+		sf::FloatRect collision = potentialCollision.value();
+
+		// Adjust to prevent the actual collision
+		if (direction.x < 0)
+		{
+			newXHitbox.position.x = thing->Hitbox.position.x + Level::TileSize.x;
+			collisionInfo.Left = true;
+		}
+		if (direction.x > 0)
+		{
+			newXHitbox.position.x = thing->Hitbox.position.x - Level::TileSize.x;
+			collisionInfo.Right = true;
+		}
+		else continue;
+
+		// Say what we've collided with
+		collisionInfo.Victim = thing;
+	}
+
+	// Check for collisions on the Y
+	sf::FloatRect newYHitbox = sf::FloatRect(sf::Vector2f(Hitbox.position.x, newHitbox.position.y), Level::TileSize);
+	for (MapObject* thing : Level::MapObjects)
+	{
+		// Check for if the thingy has a collider
+		if (thing->HasCollision == false) continue;
+
+		// Check for collision
+		std::optional<sf::FloatRect> potentialCollision = newYHitbox.findIntersection(thing->Hitbox);
+		if (potentialCollision.has_value() == false) continue;
+		sf::FloatRect collision = potentialCollision.value();
+
+		// Adjust to prevent the actual collision
+		if (direction.y < 0)
+		{
+			newYHitbox.position.y = thing->Hitbox.position.y + Level::TileSize.y;
+			collisionInfo.Top = true;
+		} 
+		if (direction.y > 0)
+		{
+			newYHitbox.position.y = thing->Hitbox.position.y - Level::TileSize.y;
+			collisionInfo.Bottom = true;
+		}
+		else continue;
+
+		// Say what we've collided with
+		collisionInfo.Victim = thing;
+	}
+
+	// Make the new hitbox based off the two seprate ones
+	newHitbox.position = sf::Vector2f(newXHitbox.position.x, newYHitbox.position.y);
+
+	// Give back the collision data
+	return collisionInfo;
+}
+
+Player::CollisionInfo Player::Move()
 {
 	// Get the players movement direction
 	//! Normalising isn't needed here ngl but good to have it
@@ -67,77 +164,8 @@ void Player::Update()
 	// Update the actual position
 	Hitbox.position = newHitbox.position;
 	body.setPosition(Hitbox.position);
-}
 
-void Player::Draw()
-{
-	Utils::GetWindow()->draw(body);
-}
-
-void Player::CleanUp()
-{
-	
-}
-
-// TODO: Use the intersection results
-Player::CollisionInfo Player::SolveCollision(sf::FloatRect &newHitbox, sf::Vector2f direction)
-{
-	// Remember what we've hit
-	CollisionInfo collisionInfo = {};
-
-	// Check for collisions on the X
-	sf::FloatRect newXHitbox = sf::FloatRect(sf::Vector2f(newHitbox.position.x, Hitbox.position.y), Level::TileSize);
-	for (MapObject* thing : Level::MapObjects)
-	{
-		// Check for if the thingy has a collider
-		if (thing->HasCollision == false) continue;
-
-		// Check for collision
-		std::optional<sf::FloatRect> potentialCollision = newXHitbox.findIntersection(thing->Hitbox);
-		if (potentialCollision.has_value() == false) continue;
-		sf::FloatRect collision = potentialCollision.value();
-
-		// Adjust to prevent the actual collision
-		if (direction.x < 0)
-		{
-			newXHitbox.position.x = thing->Hitbox.position.x + Level::TileSize.x;
-			collisionInfo.Left = true;
-		}
-		if (direction.x > 0)
-		{
-			newXHitbox.position.x = thing->Hitbox.position.x - Level::TileSize.x;
-			collisionInfo.Right = true;
-		}
-	}
-
-	// Check for collisions on the Y
-	sf::FloatRect newYHitbox = sf::FloatRect(sf::Vector2f(Hitbox.position.x, newHitbox.position.y), Level::TileSize);
-	for (MapObject* thing : Level::MapObjects)
-	{
-		// Check for if the thingy has a collider
-		if (thing->HasCollision == false) continue;
-
-		// Check for collision
-		std::optional<sf::FloatRect> potentialCollision = newYHitbox.findIntersection(thing->Hitbox);
-		if (potentialCollision.has_value() == false) continue;
-		sf::FloatRect collision = potentialCollision.value();
-
-		// Adjust to prevent the actual collision
-		if (direction.y < 0)
-		{
-			newYHitbox.position.y = thing->Hitbox.position.y + Level::TileSize.y;
-			collisionInfo.Top = true;
-		} 
-		if (direction.y > 0)
-		{
-			newYHitbox.position.y = thing->Hitbox.position.y - Level::TileSize.y;
-			collisionInfo.Bottom = true;
-		} 
-	}
-
-	// Make the new hitbox based off the two seprate ones
-	newHitbox.position = sf::Vector2f(newXHitbox.position.x, newYHitbox.position.y);
-
-	// Give back the collision data
+	// Give back the collision info so we
+	// can detect where we are and whatnot
 	return collisionInfo;
 }

@@ -150,6 +150,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="assetManager.cpp" />
+    <ClCompile Include="collisionHandler.cpp" />
+    <ClCompile Include="crackedBricks.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="logger.cpp" />
@@ -160,6 +162,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assetManager.h" />
+    <ClInclude Include="collisionHandler.h" />
+    <ClInclude Include="crackedBricks.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="logger.h" />
