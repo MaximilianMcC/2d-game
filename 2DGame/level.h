@@ -13,6 +13,7 @@ public:
 	static std::vector<MapObject*> MapObjects;
 
 	void Load();
+	void Update();
 	void Draw();
 	void Unload();
 };

@@ -29,7 +29,7 @@ void Player::Update()
 	CrackedBricks* crackedBrick = dynamic_cast<CrackedBricks*>(collision.Victim);
 	if (crackedBrick != nullptr && collision.Bottom)
 	{
-		printf("on a cracked brick");
+		crackedBrick->Crack();
 	}
 }
 

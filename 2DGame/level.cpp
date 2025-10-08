@@ -17,37 +17,38 @@ void Level::Load()
 	AssetManager::LoadTexture("bricks", "./assets/sprite/bricks.png");
 
 	// Add some blocks
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(1, 1), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(3, 2), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(3, 4), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(5, 5), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(6, 5), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(7, 5), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(8, 5), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(0, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(1, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(2, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(3, 10), true));
 
-	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(20, 15)));
-	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(21, 15)));
-	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(22, 15)));
-	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(23, 15)));
+	// MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(5, 10)));
+	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(6, 10)));
+	// MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(7, 10)));
 
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(24, 15), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(25, 15), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(26, 15), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(27, 15), true));
-
-	// Add some more blocks
-	for (int i = 0; i < 15; i++)
-	{
-		MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(5 + i, 15), true));
-		MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(5 + i, 16), true));
-	}
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(9, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(11, 10), true));
+	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(12, 10), true));
 	
+}
+
+void Level::Update()
+{
+	// Loop over all dynamic objects and update them
+	// TODO: Put dynamic objects in a seperate list
+	DynamicMapObject* updatableObject = nullptr;
+	for (size_t i = 0; i < MapObjects.size(); i++)
+	{
+		updatableObject = dynamic_cast<DynamicMapObject*>(MapObjects[i]);
+		if (updatableObject) updatableObject->Update();
+	}
 }
 
 // TODO: Take in a camera/view param
 void Level::Draw()
 {
-	for (int i = 0; i < MapObjects.size(); i++)
+	for (size_t i = 0; i < MapObjects.size(); i++)
 	{
 		MapObjects[i]->Draw();
 	}
@@ -56,7 +57,7 @@ void Level::Draw()
 void Level::Unload()
 {
 	// Remove all the map objects
-	for (int i = 0; i < MapObjects.size(); i++)
+	for (size_t i = 0; i < MapObjects.size(); i++)
 	{
 		delete MapObjects[i];
 		MapObjects[i] = nullptr;

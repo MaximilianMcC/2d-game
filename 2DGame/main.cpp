@@ -12,12 +12,13 @@ void Start()
 	level = Level();
 	level.Load();
 
-	player = new Player(sf::Vector2f(50.f, 0.f));
+	player = new Player(sf::Vector2f(50.f, 50.f));
 }
 
 void Update()
 {
 	player->Update();
+	level.Update();
 }
 
 void Draw()
@@ -28,6 +29,8 @@ void Draw()
 
 void CleanUp()
 {
+	level.Unload();
+
 	delete player;
 	player = nullptr;
 }
