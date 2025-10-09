@@ -36,4 +36,4 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 # Controls
 - Move left/right with A/D or ←/→
 - Jump with space/W/↑
-- Interact with E/lShift
+- Interact with E/RShift

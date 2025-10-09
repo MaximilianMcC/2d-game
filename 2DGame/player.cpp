@@ -123,7 +123,7 @@ CollisionHandler::CollisionInfo Player::Move()
 bool Player::JustInteracted()
 {
 	// Check for if we pressed the interraction key
-	bool interacted = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift));
+	bool interacted = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift));
 
 	// If we previously interacted then
 	// Ignore this since it'd let us
