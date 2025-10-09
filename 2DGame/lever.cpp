@@ -40,7 +40,6 @@ void Lever::Flip()
 	// TODO: play a sound
 	shape.setTexture(AssetManager::GetTexture(Flipped ? "lever-down" : "lever-up"));
 
-
 	// The door being opened/closed is based
 	// on if the lever is flicked or not
 	// TODO: Don't hardcode this

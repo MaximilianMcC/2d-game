@@ -18,7 +18,7 @@ Player::Player(sf::Vector2f spawnPoint)
 	body.setTexture(AssetManager::LoadAndGetTexture("player", "./assets/sprite/player.png"));
 
 	// TODO: Do this in the H
-	Speed = 250.f;
+	Speed = 200.f;
 	JumpForce = 120.f;
 }
 

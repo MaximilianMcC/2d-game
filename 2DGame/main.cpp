@@ -12,7 +12,7 @@ void Start()
 	player = new Player(sf::Vector2f(0.f, 0.f));
 
 	level = Level();
-	level.Load("./assets/level/debug.txt", player);
+	level.Load("./assets/level/level1.txt", player);
 }
 
 void Update()
@@ -40,7 +40,7 @@ int main()
 	Logger::SetLogLevel(Logger::LogLevel::EVERYTHING);
 
 	// Make the SFML window
-	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "Tactical restart");
+	sf::RenderWindow window(sf::VideoMode({ 640, 480 }), "top 10 nonchalant html elements");
 
 	// Delta time setup
 	float deltaTime = 0.0f;

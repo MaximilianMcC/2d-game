@@ -14,7 +14,7 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 - [x] Player can jump with Space / W / Up Arrow
 - [ ] Player can drop through certain platforms with S / Down Arrow
 - [x] At least **two types of platforms** (e.g., ground + moving/fall-through)
-- [ ] At least **two enemies/obstacles**:
+- [x] At least **two enemies/obstacles**:
   - [x] One that damages the player
   - [x] One that blocks progress (e.g., door needing key)  
 - [x] Collision system prevents falling through world and triggers damage/restart

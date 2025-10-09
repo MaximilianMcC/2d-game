@@ -15,7 +15,7 @@ private:
 
 	// Settings
 	float timeBeforeBrickFalls = 2.f;
-	float timeBeforeBrickRespawns = 5.f;
+	float timeBeforeBrickRespawns = 3.f;
 
 public:
 	CrackedBricks(sf::Vector2f position);

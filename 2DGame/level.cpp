@@ -10,7 +10,7 @@
 #include "lever.h"
 #include "door.h"
 
-sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f) * 1.5f;
+sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f);
 float Level::Gravity = 350.f;
 std::vector<MapObject*> Level::MapObjects;
 int Level::Width = 0;
