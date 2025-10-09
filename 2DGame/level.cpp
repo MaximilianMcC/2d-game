@@ -14,8 +14,8 @@ std::vector<MapObject*> Level::MapObjects;
 int Level::Width = 0;
 int Level::Height = 0;
 
-//! this whole thing is temp debug
-void Level::Load(std::string mapFilePath)
+// TODO: Do not pass player in like this
+void Level::Load(std::string mapFilePath, Player* player)
 {
 	// Load the textures
 	AssetManager::LoadTexture("bricks", "./assets/sprite/bricks.png");
@@ -40,24 +40,32 @@ void Level::Load(std::string mapFilePath)
 	{
 		// Every character is a tile
 		std::vector<std::string> tiles = Utils::Split(line, "");
-		for (int i = 0; i < tiles.size(); i++)
+		for (size_t i = 0; i < tiles.size(); i++)
 		{
+			// Get the coordinates of the current tile
+			sf::Vector2f tileCoordinates = TileSize * currentCoordinates;
+
 			// Check for what kinda tile we're making
 			// TODO: Use switch		
 			if (tiles[i] == "w")
 			{
 				// Normal wall
-				MapObjects.push_back(new Tile("bricks", TileSize * currentCoordinates, true));
+				MapObjects.push_back(new Tile("bricks", tileCoordinates, true));
 			}
 			else if (tiles[i] == "l")
 			{
 				// Lava
-				MapObjects.push_back(new Lava(TileSize * currentCoordinates));
+				MapObjects.push_back(new Lava(tileCoordinates));
 			}
 			else if (tiles[i] == "c")
 			{
 				// Cracked bricks
-				MapObjects.push_back(new CrackedBricks(TileSize * currentCoordinates));
+				MapObjects.push_back(new CrackedBricks(tileCoordinates));
+			}
+			else if (tiles[i] == "p")
+			{
+				// Player
+				player->Hitbox.position = tileCoordinates;
 			}
 
 			// Update the coordinates

@@ -40,6 +40,11 @@ void Player::Update()
 	{
 		printf("dead");
 	}
+
+	// Update the players visual position
+	// based on their actual position
+	// TODO: Maybe put in Draw but also dont
+	body.setPosition(Hitbox.position);
 }
 
 void Player::Draw()
@@ -100,7 +105,6 @@ CollisionHandler::CollisionInfo Player::Move()
 
 	// Update the actual position
 	Hitbox.position = newHitbox.position;
-	body.setPosition(Hitbox.position);
 
 	// Give back the collision info so we
 	// can detect where we are and whatnot

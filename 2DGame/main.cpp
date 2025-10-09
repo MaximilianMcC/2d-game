@@ -9,10 +9,10 @@ Player* player;
 
 void Start()
 {
-	level = Level();
-	level.Load("./assets/level/debug.txt");
+	player = new Player(sf::Vector2f(0.f, 0.f));
 
-	player = new Player(sf::Vector2f(50.f, 50.f));
+	level = Level();
+	level.Load("./assets/level/debug.txt", player);
 }
 
 void Update()

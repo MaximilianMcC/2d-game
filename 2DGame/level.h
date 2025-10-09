@@ -4,6 +4,7 @@
 #include <vector>
 #include "mapObjects.h"
 #include "utils.h"
+#include "player.h"
 
 class Level
 {
@@ -14,7 +15,8 @@ public:
 	static int Width;
 	static int Height;
 
-	void Load(std::string mapFilePath);
+	// TODO: Make static
+	void Load(std::string mapFilePath, Player* player);
 	void Update();
 	void Draw();
 	void Unload();

@@ -10,6 +10,8 @@ private:
 	bool onTheGroundRn = false;
 	float yVelocity = 0.0f;
 
+	CollisionHandler::CollisionInfo Move();
+
 public:
 	float Speed;
 	float JumpForce;
@@ -19,6 +21,4 @@ public:
 	void Update() override;
 	void Draw() override;
 	void CleanUp() override;
-
-	CollisionHandler::CollisionInfo Move();
 };
