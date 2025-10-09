@@ -16,24 +16,30 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 - [x] At least **two types of platforms** (e.g., ground + moving/fall-through)
 - [ ] At least **two enemies/obstacles**:
   - [x] One that damages the player
-  - [ ] One that blocks progress (e.g., door needing key)  
+  - [x] One that blocks progress (e.g., door needing key)  
 - [x] Collision system prevents falling through world and triggers damage/restart
 - [ ] Debug window toggled by a key (e.g., `~` or `Esc`) to edit properties at runtime
 - [ ] Game has both **win** and **lose** states
 
 ## Advanced Features
 - [x] Level loader using text files (multiple levels, consistent format)
-- [ ] Interactable objects (switches, plates, breakables, etc.)
+- [x] Interactable objects (switches, plates, breakables, etc.)
 - [ ] Physics-based interactions (pushing, gravity toggle, scaling objects, etc.)
 
 ## Stuff I want
 - [ ] Menu with level loading ui
 - [ ] Baked map
+- [ ] Player animations
+- [ ] Sounds & maybe music
+
+---
 
 # Plan
 ![pre windows 11 ms paint is dodgy as](https://i.imgur.com/HUFavIZ.png)
 
+---
+
 # Controls
-- Move left/right with A/D or ←/→
-- Jump with space/W/↑
-- Interact with E/RShift
+- Move left/right with <kbd>A</kbd>/<kbd>D</kbd> or <kbd>←</kbd>/<kbd>→</kbd>
+- Jump with <kbd>space</kbd>/<kbd>W</kbd>/<kbd>↑</kbd>
+- Interact with <kbd>E</kbd>/<kbd>RShift</kbd>

@@ -8,6 +8,7 @@
 #include "crackedBricks.h"
 #include "lava.h"
 #include "lever.h"
+#include "door.h"
 
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f) * 1.5f;
 float Level::Gravity = 350.f;
@@ -68,6 +69,11 @@ void Level::Load(std::string mapFilePath, Player* player)
 				// Lever
 				//? is a k because it looks like both states of it yk
 				MapObjects.push_back(new Lever(tileCoordinates, false));
+			}
+			else if (tiles[i] == "d")
+			{
+				// Door
+				MapObjects.push_back(new Door(tileCoordinates));
 			}
 			else if (tiles[i] == "p")
 			{
