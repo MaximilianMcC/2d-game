@@ -11,8 +11,10 @@ public:
 	static sf::Vector2f TileSize;
 	static float Gravity;
 	static std::vector<MapObject*> MapObjects;
+	static int Width;
+	static int Height;
 
-	void Load();
+	void Load(std::string mapFilePath);
 	void Update();
 	void Draw();
 	void Unload();

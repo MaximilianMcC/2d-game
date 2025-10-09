@@ -1,37 +1,8 @@
->TEXTURES
-0 C:/test.png
-1 ./assets/sprite/sky.png
-2 ./assets/sprite/grass.png
-3 ./assets/sprite/dirt.png
-4 ./assets/sprite/stone.png
 
->TILES
-// KEY TEXTURE_INDEX TAG1,TAG2,TAG3
-debug 0
-sky 1
-grass 2 collision
-dirt 3 collision
-stone 4 collision
 
->MAP
-sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky
-sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky
-sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky
-sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky
-sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky
-sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky,sky
-grass,grass,grass,grass,grass,grass,grass,grass,grass,grass,grass,grass,grass,grass,grass,grass,grass
-grass,dirt,grass,grass,grass,dirt,grass,dirt,dirt,grass,grass,dirt,grass,dirt,grass,grass,grass
-dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
-dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,stone,dirt,dirt
-dirt,dirt,stone,dirt,dirt,dirt,stone,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
-stone,stone,stone,dirt,stone,dirt,dirt,stone,stone,dirt,dirt,stone,dirt,dirt,dirt,dirt,dirt
-stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone
-stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone
-stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone
-stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone
-stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone
-stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone,stone
 
->NAME
-debug
+
+wwwwwccccccwwww
+
+
+lllllllllllllll

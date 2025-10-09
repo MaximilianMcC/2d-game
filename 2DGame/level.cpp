@@ -4,37 +4,78 @@
 #include "player.h"
 #include "crackedBricks.h"
 #include "lava.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
-// sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f);
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f) * 1.5f;
 float Level::Gravity = 350.f;
 std::vector<MapObject*> Level::MapObjects;
+int Level::Width = 0;
+int Level::Height = 0;
 
 //! this whole thing is temp debug
-void Level::Load()
+void Level::Load(std::string mapFilePath)
 {
 	// Load the textures
-	AssetManager::LoadTexture("test", "C:/test.png");
 	AssetManager::LoadTexture("bricks", "./assets/sprite/bricks.png");
 
-	// Add some blocks
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(0, 10), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(1, 10), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(2, 10), true));
-
-	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(5, 10)));
-	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(6, 10)));
-	MapObjects.push_back(new CrackedBricks(TileSize * sf::Vector2f(7, 10)));
-
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(10, 10), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(11, 10), true));
-	MapObjects.push_back(new Tile("bricks", TileSize * sf::Vector2f(12, 10), true));	
-
-	for (size_t i = 0; i < 11; i++)
+	// Open the file
+	std::ifstream mapFile(mapFilePath);
+	if (mapFile.is_open() == false)
 	{
-		MapObjects.push_back(new Lava(TileSize * sf::Vector2f(0 + i, 15)));
+		std::cerr << "issue opening map file at \"" << mapFilePath << "\"" << std::endl;
+		return;
 	}
-	
+
+	// Reset everything from the previous level
+	MapObjects.clear();
+	Width = 0;
+	Height = 0;
+
+	// Loop over every line in the file
+	std::string line;
+	sf::Vector2f currentCoordinates = sf::Vector2f(0.0f, 0.0f);
+	while (std::getline(mapFile, line))
+	{
+		// Every character is a tile
+		std::vector<std::string> tiles = Utils::Split(line, "");
+		for (int i = 0; i < tiles.size(); i++)
+		{
+			// Check for what kinda tile we're making
+			// TODO: Use switch		
+			if (tiles[i] == "w")
+			{
+				// Normal wall
+				MapObjects.push_back(new Tile("bricks", TileSize * currentCoordinates, true));
+			}
+			else if (tiles[i] == "l")
+			{
+				// Lava
+				MapObjects.push_back(new Lava(TileSize * currentCoordinates));
+			}
+			else if (tiles[i] == "c")
+			{
+				// Cracked bricks
+				MapObjects.push_back(new CrackedBricks(TileSize * currentCoordinates));
+			}
+
+			// Update the coordinates
+			currentCoordinates.x++;
+
+			// Update the max width
+			if (Width + 1 > Width) Width++;
+		}
+
+		// Update the max height and reset the
+		// coordinates x position for the new line
+		Height++;
+		currentCoordinates.x = 0.0f;
+		currentCoordinates.y++;
+	}
+
+	// Done
+	mapFile.close();	
 }
 
 void Level::Update()
