@@ -29,3 +29,6 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 ## Stuff I want
 - [ ] Menu with level loading ui
 - [ ] Baked map
+
+# Plan
+![pre windows 11 ms paint is dodgy as](https://i.imgur.com/HUFavIZ.png)
