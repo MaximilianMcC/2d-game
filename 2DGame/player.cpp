@@ -1,15 +1,16 @@
 #include "player.h"
 #include "level.h"
+#include "collisionHandler.h"
 #include "assetManager.h"
 #include "crackedBricks.h"
 #include "lava.h"
-#include "collisionHandler.h"
+#include "lever.h"
 
 Player::Player(sf::Vector2f spawnPoint)
 {
 	// Make the hitbox
 	Hitbox = sf::FloatRect(spawnPoint, Level::TileSize);
-	HasCollision = true;
+	IsImpassable = true;
 
 	// Body
 	body = sf::RectangleShape(Hitbox.size);
@@ -39,6 +40,14 @@ void Player::Update()
 	if (lava != nullptr)
 	{
 		printf("dead");
+	}
+
+	// Check for if we flip a lever
+	Lever* lever = dynamic_cast<Lever*>(collision.Victim);
+	if (lever != nullptr)
+	{
+		// Make sure we press the use key
+		if (JustInteracted()) lever->Flip(); 
 	}
 
 	// Update the players visual position
@@ -109,4 +118,23 @@ CollisionHandler::CollisionInfo Player::Move()
 	// Give back the collision info so we
 	// can detect where we are and whatnot
 	return collisionInfo;
+}
+
+bool Player::JustInteracted()
+{
+	// Check for if we pressed the interraction key
+	bool interacted = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift));
+
+	// If we previously interacted then
+	// Ignore this since it'd let us
+	// spam/hold the interact key (bad)
+	if (interacted && previouslyInteracted == false)
+	{
+		previouslyInteracted = true;
+		return true;
+	}
+
+	// When we let go then reset
+	if (interacted == false) previouslyInteracted = false;
+	return false;
 }

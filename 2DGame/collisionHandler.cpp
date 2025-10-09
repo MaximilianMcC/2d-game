@@ -12,13 +12,17 @@ CollisionHandler::CollisionInfo CollisionHandler::SolveCollisionWithWorld(sf::Fl
 	sf::FloatRect newXHitbox = sf::FloatRect(sf::Vector2f(newHitbox.position.x, hitbox.position.y), Level::TileSize);
 	for (MapObject* thing : Level::MapObjects)
 	{
-		// Check for if the thingy has a collider
-		if (thing->HasCollision == false) continue;
-
 		// Check for collision
 		std::optional<sf::FloatRect> potentialCollision = newXHitbox.findIntersection(thing->Hitbox);
 		if (potentialCollision.has_value() == false) continue;
 		sf::FloatRect collision = potentialCollision.value();
+
+		// Say what we've collided with
+		collisionInfo.Victim = thing;
+
+		// Check for if we want to adjust the
+		// new hitbox to not collide
+		if (thing->IsImpassable == false) continue;
 
 		// Adjust to prevent the actual collision
 		if (direction.x < 0)
@@ -32,22 +36,23 @@ CollisionHandler::CollisionInfo CollisionHandler::SolveCollisionWithWorld(sf::Fl
 			collisionInfo.Right = true;
 		}
 		else continue;
-
-		// Say what we've collided with
-		collisionInfo.Victim = thing;
 	}
 
 	// Check for collisions on the Y
 	sf::FloatRect newYHitbox = sf::FloatRect(sf::Vector2f(hitbox.position.x, newHitbox.position.y), Level::TileSize);
 	for (MapObject* thing : Level::MapObjects)
 	{
-		// Check for if the thingy has a collider
-		if (thing->HasCollision == false) continue;
-
 		// Check for collision
 		std::optional<sf::FloatRect> potentialCollision = newYHitbox.findIntersection(thing->Hitbox);
 		if (potentialCollision.has_value() == false) continue;
 		sf::FloatRect collision = potentialCollision.value();
+
+		// Say what we've collided with
+		collisionInfo.Victim = thing;
+
+		// Check for if we want to adjust the
+		// new hitbox to not collide
+		if (thing->IsImpassable == false) continue;
 
 		// Adjust to prevent the actual collision
 		if (direction.y < 0)
@@ -61,9 +66,6 @@ CollisionHandler::CollisionInfo CollisionHandler::SolveCollisionWithWorld(sf::Fl
 			collisionInfo.Bottom = true;
 		}
 		else continue;
-
-		// Say what we've collided with
-		collisionInfo.Victim = thing;
 	}
 
 	// Make the new hitbox based off the two seprate ones

@@ -6,7 +6,7 @@
 class MapObject {
 public:
 	sf::FloatRect Hitbox;
-	bool HasCollision;
+	bool IsImpassable;
 
 	virtual void Draw() = 0;
 };

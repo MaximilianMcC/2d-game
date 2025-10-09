@@ -32,3 +32,8 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 
 # Plan
 ![pre windows 11 ms paint is dodgy as](https://i.imgur.com/HUFavIZ.png)
+
+# Controls
+- Move left/right with A/D or ←/→
+- Jump with space/W/↑
+- Interact with E/lShift

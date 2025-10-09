@@ -9,8 +9,10 @@ private:
 	sf::RectangleShape body;
 	bool onTheGroundRn = false;
 	float yVelocity = 0.0f;
+	bool previouslyInteracted;
 
 	CollisionHandler::CollisionInfo Move();
+	bool JustInteracted();
 
 public:
 	float Speed;

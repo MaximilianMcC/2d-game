@@ -15,7 +15,7 @@ Tile::Tile(std::string textureKey, sf::Vector2f position, bool hasCollision)
 	shape.setTexture(AssetManager::GetTexture(textureKey));
 
 	// Set its properties
-	HasCollision = hasCollision;
+	IsImpassable = hasCollision;
 }
 
 void Tile::Draw()
@@ -42,7 +42,7 @@ AnimatedTile::AnimatedTile(std::vector<std::string> texturePaths, float animatio
 	textureKeys = texturePaths;
 
 	// Set its properties
-	HasCollision = hasCollision;
+	IsImpassable = hasCollision;
 	fps = 1.0f / animationFps;
 
 	// Set the initial texture

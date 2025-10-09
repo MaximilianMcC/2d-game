@@ -155,6 +155,7 @@
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="lava.cpp" />
     <ClCompile Include="level.cpp" />
+    <ClCompile Include="lever.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapObjects.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="lava.h" />
     <ClInclude Include="level.h" />
+    <ClInclude Include="lever.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="mapObjects.h" />
     <ClInclude Include="numericalVectors.h" />

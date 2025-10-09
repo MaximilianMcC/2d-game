@@ -1,12 +1,13 @@
 #include "level.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 #include "assetManager.h"
 #include "numericalVectors.h"
 #include "player.h"
 #include "crackedBricks.h"
 #include "lava.h"
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "lever.h"
 
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f) * 1.5f;
 float Level::Gravity = 350.f;
@@ -62,13 +63,19 @@ void Level::Load(std::string mapFilePath, Player* player)
 				// Cracked bricks
 				MapObjects.push_back(new CrackedBricks(tileCoordinates));
 			}
+			else if (tiles[i] == "k")
+			{
+				// Lever
+				//? is a k because it looks like both states of it yk
+				MapObjects.push_back(new Lever(tileCoordinates, false));
+			}
 			else if (tiles[i] == "p")
 			{
 				// Player
 				player->Hitbox.position = tileCoordinates;
 			}
 
-			// Update the coordinates
+			// Update the coordinates for the next tile
 			currentCoordinates.x++;
 
 			// Update the max width

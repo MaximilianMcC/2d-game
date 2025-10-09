@@ -25,7 +25,7 @@ CrackedBricks::CrackedBricks(sf::Vector2f position)
 	shape.setTexture(AssetManager::GetTexture("cracked-bricks-0"));
 
 	// Set its properties
-	HasCollision = true;
+	IsImpassable = true;
 }
 
 void CrackedBricks::Update()
@@ -54,7 +54,7 @@ void CrackedBricks::Update()
 			timer = 0;
 
 			// Remove collision so the player will also fall
-			HasCollision = false;			
+			IsImpassable = false;			
 		}
 	}
 
@@ -67,7 +67,7 @@ void CrackedBricks::Update()
 			// Reset everything
 			beenSteppedOn = false;
 			cracked = false;
-			HasCollision = true;
+			IsImpassable = true;
 			timer = 0;
 
 			// Go back to the uncracked texture
