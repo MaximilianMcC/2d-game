@@ -15,13 +15,17 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 - [ ] Player can drop through certain platforms with S / Down Arrow
 - [x] At least **two types of platforms** (e.g., ground + moving/fall-through)
 - [ ] At least **two enemies/obstacles**:
-  - [ ] One that damages the player
+  - [x] One that damages the player
   - [ ] One that blocks progress (e.g., door needing key)  
-- [ ] Collision system prevents falling through world and triggers damage/restart
+- [x] Collision system prevents falling through world and triggers damage/restart
 - [ ] Debug window toggled by a key (e.g., `~` or `Esc`) to edit properties at runtime
 - [ ] Game has both **win** and **lose** states
 
 ## Advanced Features
-- [ ] Level loader using text files (multiple levels, consistent format)
+- [x] Level loader using text files (multiple levels, consistent format)
 - [ ] Interactable objects (switches, plates, breakables, etc.)
-- [x] Physics-based interactions (pushing, gravity toggle, scaling objects, etc.)
+- [ ] Physics-based interactions (pushing, gravity toggle, scaling objects, etc.)
+
+## Stuff I want
+- [ ] Menu with level loading ui
+- [ ] Baked map
