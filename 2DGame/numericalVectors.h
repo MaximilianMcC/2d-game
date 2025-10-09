@@ -58,6 +58,26 @@ sf::Vector2<T>& operator/=(sf::Vector2<T>& left, const sf::Vector2<T>& right)
 	return left;
 }
 
+// ++ing both components of a vector
+//? the int is a temp thingy
+template<typename T>
+sf::Vector2<T>& operator++(sf::Vector2<T>& vector, int)
+{
+	vector.x++;
+	vector.y++;
+	return vector;
+}
+
+// --ing both components of a vector
+//? the int is a temp thingy
+template<typename T>
+sf::Vector2<T>& operator--(sf::Vector2<T>& vector, int)
+{
+	vector.x--;
+	vector.y--;
+	return vector;
+}
+
 // Printing a vector
 template<typename T>
 std::ostream& operator<<(std::ostream& stream, const sf::Vector2<T>& vector)
