@@ -43,3 +43,4 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 - Move left/right with <kbd>A</kbd>/<kbd>D</kbd> or <kbd>←</kbd>/<kbd>→</kbd>
 - Jump with <kbd>space</kbd>/<kbd>W</kbd>/<kbd>↑</kbd>
 - Interact with <kbd>E</kbd>/<kbd>RShift</kbd>
+- Respawn with <kbd>R</kbd>/<kbd>Enter</kbd>

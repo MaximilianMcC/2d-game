@@ -12,10 +12,14 @@ Player::Player(sf::Vector2f spawnPoint)
 	Hitbox = sf::FloatRect(spawnPoint, Level::TileSize);
 	IsImpassable = true;
 
+	// Load the textures
+	AssetManager::LoadTexture("player", "./assets/sprite/player.png");
+	AssetManager::LoadTexture("player-dead", "./assets/sprite/player-dead.png");
+
 	// Body
 	body = sf::RectangleShape(Hitbox.size);
 	body.setPosition(Hitbox.position);
-	body.setTexture(AssetManager::LoadAndGetTexture("player", "./assets/sprite/player.png"));
+	body.setTexture(AssetManager::GetTexture("player"));
 
 	// TODO: Do this in the H
 	Speed = 200.f;
@@ -24,6 +28,24 @@ Player::Player(sf::Vector2f spawnPoint)
 
 void Player::Update()
 {
+	// If we're dead then just don't do anything
+	// except for let them respawn
+	if (Dead)
+	{
+		// Check for if we press the respawn key
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+		{
+			// We're no longer dead
+			Dead = false;
+
+			// Respawn at the spawnpoint
+			Hitbox.position = spawnPoint;
+			body.setTexture(AssetManager::GetTexture("player"));
+		}
+		
+		return;
+	}
+
 	// Let the player move around
 	CollisionHandler::CollisionInfo collision = Move();
 
@@ -39,7 +61,7 @@ void Player::Update()
 	Lava* lava = dynamic_cast<Lava*>(collision.Victim);
 	if (lava != nullptr)
 	{
-		printf("dead");
+		Die();
 	}
 
 	// Check for if we flip a lever
@@ -64,6 +86,20 @@ void Player::Draw()
 void Player::CleanUp()
 {
 	
+}
+
+void Player::SetSpawnpoint(sf::Vector2f coordinates)
+{
+	spawnPoint = coordinates;
+	Hitbox.position = spawnPoint;
+}
+
+void Player::Die()
+{
+	Dead = true;
+
+	// Switch to the dead texture
+	body.setTexture(AssetManager::GetTexture("player-dead"));
 }
 
 CollisionHandler::CollisionInfo Player::Move()

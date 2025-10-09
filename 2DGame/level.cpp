@@ -78,7 +78,7 @@ void Level::Load(std::string mapFilePath, Player* player)
 			else if (tiles[i] == "p")
 			{
 				// Player
-				player->Hitbox.position = tileCoordinates;
+				player->SetSpawnpoint(tileCoordinates);
 			}
 
 			// Update the coordinates for the next tile
