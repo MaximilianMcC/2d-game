@@ -13,7 +13,7 @@ Lever::Lever(sf::Vector2f position, bool flipped)
 	AssetManager::LoadTexture("lever-down", "./assets/sprite/lever-down.png");
 
 	// Set its properties
-	IsImpassable = false;
+	BlocksMovement = false;
 	Flipped = flipped;
 	
 	// Set the texture depending on if its flipped or not

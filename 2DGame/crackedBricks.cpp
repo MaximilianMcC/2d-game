@@ -49,7 +49,7 @@ void CrackedBricks::Update()
 			timer = 0;
 
 			// Remove collision so the player will also fall
-			IsImpassable = false;			
+			BlocksMovement = false;			
 		}
 	}
 
@@ -62,7 +62,7 @@ void CrackedBricks::Update()
 			// Reset everything
 			beenSteppedOn = false;
 			cracked = false;
-			IsImpassable = true;
+			BlocksMovement = true;
 			timer = 0;
 
 			// Go back to the uncracked texture

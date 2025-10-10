@@ -20,7 +20,7 @@ Door::Door(sf::Vector2f position)
 
 	// Set its properties
 	Opened = false;
-	IsImpassable = true;
+	BlocksMovement = true;
 
 	// Make the shape for rendering and add the texture
 	// TODO: Don't do this
@@ -32,7 +32,7 @@ Door::Door(sf::Vector2f position)
 void Door::Open()
 {
 	Opened = true;
-	IsImpassable = false;
+	BlocksMovement = false;
 	shape.setTexture(AssetManager::GetTexture("door-opened"));
 
 	// TODO: play a sound
@@ -41,7 +41,7 @@ void Door::Open()
 void Door::Close()
 {
 	Opened = false;
-	IsImpassable = true;
+	BlocksMovement = true;
 	shape.setTexture(AssetManager::GetTexture("door-closed"));
 
 	// TODO: play a sound

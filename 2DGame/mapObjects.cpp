@@ -15,7 +15,7 @@ Tile::Tile(std::string textureKey, sf::Vector2f position, bool hasCollision)
 	shape.setTexture(AssetManager::GetTexture(textureKey));
 
 	// Set its properties
-	IsImpassable = hasCollision;
+	BlocksMovement = hasCollision;
 }
 
 void Tile::Draw()
@@ -42,7 +42,7 @@ AnimatedTile::AnimatedTile(std::vector<std::string> texturePaths, float animatio
 	textureKeys = texturePaths;
 
 	// Set its properties
-	IsImpassable = hasCollision;
+	BlocksMovement = hasCollision;
 	fps = 1.0f / animationFps;
 
 	// Set the initial texture
@@ -68,13 +68,13 @@ void AnimatedTile::Draw()
 	Utils::GetWindow()->draw(shape);
 }
 
-void DynamicMapObject::CreateDefaultHitbox(sf::Vector2f position, bool impassable)
+void DynamicMapObject::CreateDefaultHitbox(sf::Vector2f position, bool blocksMovement)
 {
 	// Make the hitbox
 	Hitbox = sf::FloatRect(position, Level::TileSize);
 
 	// Set its properties
-	IsImpassable = impassable;
+	BlocksMovement = blocksMovement;
 
 	// Make the shape for rendering and add the texture
 	// TODO: Don't do this
