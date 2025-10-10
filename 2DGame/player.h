@@ -2,13 +2,14 @@
 
 #include "mapObjects.h"
 #include "collisionHandler.h"
+#include "dropDownPlatform.h"
 
 class Player : public DynamicMapObject
 {
 private:
 	bool onTheGroundRn = false;
 	float yVelocity = 0.0f;
-	bool previouslyInteracted;
+	bool previouslyInteracted = false;
 	sf::Vector2f spawnPoint;
 
 	CollisionHandler::CollisionInfo Move();

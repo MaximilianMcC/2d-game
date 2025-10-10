@@ -9,10 +9,11 @@ Player player;
 
 void Start()
 {
+	// TODO: Just put the player in the level because this is confusing and slow as
 	player = Player();
 
 	level = Level();
-	level.Load("./assets/level/level1.txt", player);
+	level.Load("./assets/level/debug.txt", player);
 }
 
 void Update()

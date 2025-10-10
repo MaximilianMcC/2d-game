@@ -21,7 +21,7 @@ class DynamicMapObject : public MapObject
 {
 protected:
 	sf::RectangleShape shape;
-	void CreateDefaultHitbox(sf::Vector2f position, bool impassable);
+	void CreateDefaultHitbox(sf::Vector2f position, bool blocksMovement);
 
 public:
 	virtual void Update() { }

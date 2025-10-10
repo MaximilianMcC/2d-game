@@ -9,6 +9,7 @@
 #include "lava.h"
 #include "lever.h"
 #include "door.h"
+#include "dropDownPlatform.h"
 
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f);
 float Level::Gravity = 350.f;
@@ -74,6 +75,12 @@ void Level::Load(std::string mapFilePath, Player& player)
 			{
 				// Door
 				MapObjects.push_back(new Door(tileCoordinates));
+			}
+			else if (tiles[i] == "v")
+			{
+				// Drop down platform
+				//? V because the platform is vertical
+				MapObjects.push_back(new DropDownPlatform(tileCoordinates));
 			}
 			else if (tiles[i] == "p")
 			{
