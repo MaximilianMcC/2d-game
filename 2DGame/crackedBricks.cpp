@@ -5,10 +5,11 @@
 
 CrackedBricks::CrackedBricks(sf::Vector2f position)
 {
-	// Make the hitbox and save the og
-	// position so we can reset it when
-	// the brick is respawned
-	Hitbox = sf::FloatRect(position, Level::TileSize);
+	// Make the hitbox
+	CreateDefaultHitbox(position, true);
+
+	// save the og position so we can reset
+	// it when the brick is respawned
 	initialPosition = position;
 
 	// Load all the textures
@@ -19,13 +20,7 @@ CrackedBricks::CrackedBricks(sf::Vector2f position)
 	AssetManager::LoadTexture("cracked-bricks-3", "./assets/sprite/cracked-bricks-3.png");
 
 	// Make the shape for rendering and add the texture
-	// TODO: Don't do this
-	shape = sf::RectangleShape(Hitbox.size);
-	shape.setPosition(Hitbox.position);
 	shape.setTexture(AssetManager::GetTexture("cracked-bricks-0"));
-
-	// Set its properties
-	IsImpassable = true;
 }
 
 void CrackedBricks::Update()
@@ -87,11 +82,6 @@ void CrackedBricks::Update()
 		Hitbox.position.y += yVelocity * Utils::GetDeltaTime();
 		shape.setPosition(Hitbox.position);
 	}
-}
-
-void CrackedBricks::Draw()
-{
-	Utils::GetWindow()->draw(shape);
 }
 
 void CrackedBricks::Crack()

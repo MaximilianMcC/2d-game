@@ -16,7 +16,7 @@ public:
 	static int Height;
 
 	// TODO: Make static
-	void Load(std::string mapFilePath, Player* player);
+	void Load(std::string mapFilePath, Player& player);
 	void Update();
 	void Draw();
 	void Unload();

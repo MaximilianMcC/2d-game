@@ -5,11 +5,11 @@
 #include "player.h"
 
 Level level;
-Player* player;
+Player player;
 
 void Start()
 {
-	player = new Player(sf::Vector2f(0.f, 0.f));
+	player = Player();
 
 	level = Level();
 	level.Load("./assets/level/level1.txt", player);
@@ -17,22 +17,19 @@ void Start()
 
 void Update()
 {
-	player->Update();
+	player.Update();
 	level.Update();
 }
 
 void Draw()
 {
 	level.Draw();
-	player->Draw();
+	player.Draw();
 }
 
 void CleanUp()
 {
 	level.Unload();
-
-	delete player;
-	player = nullptr;
 }
 
 int main()

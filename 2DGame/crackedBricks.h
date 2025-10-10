@@ -5,7 +5,6 @@
 class CrackedBricks : public DynamicMapObject
 {
 private:
-	sf::RectangleShape shape;
 	float yVelocity = 0.f;
 	sf::Vector2f initialPosition;
 
@@ -20,7 +19,6 @@ private:
 public:
 	CrackedBricks(sf::Vector2f position);
 	void Update() override;
-	void Draw() override;
 
 	void Crack();
 };

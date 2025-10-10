@@ -19,9 +19,13 @@ class StaticMapObject : public MapObject
 // Used for stuff that moves via logic
 class DynamicMapObject : public MapObject
 {
+protected:
+	sf::RectangleShape shape;
+	void CreateDefaultHitbox(sf::Vector2f position, bool impassable);
+
 public:
 	virtual void Update() { }
-	virtual void Draw() { }
+	virtual void Draw();
 	virtual void CleanUp() { }
 };
 

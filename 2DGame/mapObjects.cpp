@@ -67,3 +67,22 @@ void AnimatedTile::Draw()
 	// Draw the actual tile
 	Utils::GetWindow()->draw(shape);
 }
+
+void DynamicMapObject::CreateDefaultHitbox(sf::Vector2f position, bool impassable)
+{
+	// Make the hitbox
+	Hitbox = sf::FloatRect(position, Level::TileSize);
+
+	// Set its properties
+	IsImpassable = impassable;
+
+	// Make the shape for rendering and add the texture
+	// TODO: Don't do this
+	shape = sf::RectangleShape(Hitbox.size);
+	shape.setPosition(Hitbox.position);
+}
+
+void DynamicMapObject::Draw()
+{
+	Utils::GetWindow()->draw(shape);
+}

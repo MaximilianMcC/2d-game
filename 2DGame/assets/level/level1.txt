@@ -5,7 +5,7 @@ w         d   p                kwww
 wwww   wwwwwwwwwww  c  c  c  wwwwww
 wwww   wwwwwwwwwww           wwwwww
 wwww   wwwwwwwwwww           wwwwww
-       wwwwwwwwwww           wwwwww
-       wwwwwwwwwwwlllllllllllwwwwww
-       wwwwwwwwwwwlllllllllllwwwwww
+             wwwww           wwwwww
+             wwwwwlllllllllllwwwwww
+             wwwwwlllllllllllwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww

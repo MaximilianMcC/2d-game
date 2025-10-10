@@ -5,9 +5,7 @@
 
 Lever::Lever(sf::Vector2f position, bool flipped)
 {
-	// Make the hitbox
-	// TODO: Maybe make it a big large
-	Hitbox = sf::FloatRect(position, Level::TileSize);
+	CreateDefaultHitbox(position, false);
 
 	// Load both textures
 	// TODO: Don't do this every time
@@ -17,17 +15,9 @@ Lever::Lever(sf::Vector2f position, bool flipped)
 	// Set its properties
 	IsImpassable = false;
 	Flipped = flipped;
-
-	// Make the shape for rendering and add the texture
-	// TODO: Don't do this
-	shape = sf::RectangleShape(Hitbox.size);
-	shape.setPosition(Hitbox.position);
+	
+	// Set the texture depending on if its flipped or not
 	shape.setTexture(AssetManager::GetTexture(Flipped ? "lever-down" : "lever-up"));
-}
-
-void Lever::Draw()
-{
-	Utils::GetWindow()->draw(shape);
 }
 
 void Lever::Flip()

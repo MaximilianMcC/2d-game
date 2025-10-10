@@ -29,11 +29,6 @@ Door::Door(sf::Vector2f position)
 	shape.setTexture(AssetManager::GetTexture("door-closed"));
 }
 
-void Door::Draw()
-{
-	Utils::GetWindow()->draw(shape);
-}
-
 void Door::Open()
 {
 	Opened = true;

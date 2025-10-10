@@ -6,20 +6,14 @@
 #include "lava.h"
 #include "lever.h"
 
-Player::Player(sf::Vector2f spawnPoint)
+Player::Player()
 {
-	// Make the hitbox
-	Hitbox = sf::FloatRect(spawnPoint, Level::TileSize);
-	IsImpassable = true;
+	CreateDefaultHitbox(sf::Vector2f(0.f, 0.f), true);
 
 	// Load the textures
 	AssetManager::LoadTexture("player", "./assets/sprite/player.png");
 	AssetManager::LoadTexture("player-dead", "./assets/sprite/player-dead.png");
-
-	// Body
-	body = sf::RectangleShape(Hitbox.size);
-	body.setPosition(Hitbox.position);
-	body.setTexture(AssetManager::GetTexture("player"));
+	shape.setTexture(AssetManager::GetTexture("player"));
 
 	// TODO: Do this in the H
 	Speed = 200.f;
@@ -40,7 +34,7 @@ void Player::Update()
 
 			// Respawn at the spawnpoint
 			Hitbox.position = spawnPoint;
-			body.setTexture(AssetManager::GetTexture("player"));
+			shape.setTexture(AssetManager::GetTexture("player"));
 		}
 		
 		return;
@@ -75,17 +69,7 @@ void Player::Update()
 	// Update the players visual position
 	// based on their actual position
 	// TODO: Maybe put in Draw but also dont
-	body.setPosition(Hitbox.position);
-}
-
-void Player::Draw()
-{
-	Utils::GetWindow()->draw(body);
-}
-
-void Player::CleanUp()
-{
-	
+	shape.setPosition(Hitbox.position);
 }
 
 void Player::SetSpawnpoint(sf::Vector2f coordinates)
@@ -99,7 +83,7 @@ void Player::Die()
 	Dead = true;
 
 	// Switch to the dead texture
-	body.setTexture(AssetManager::GetTexture("player-dead"));
+	shape.setTexture(AssetManager::GetTexture("player-dead"));
 }
 
 CollisionHandler::CollisionInfo Player::Move()

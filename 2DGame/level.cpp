@@ -17,7 +17,7 @@ int Level::Width = 0;
 int Level::Height = 0;
 
 // TODO: Do not pass player in like this
-void Level::Load(std::string mapFilePath, Player* player)
+void Level::Load(std::string mapFilePath, Player& player)
 {
 	// Load the textures
 	AssetManager::LoadTexture("bricks", "./assets/sprite/bricks.png");
@@ -78,7 +78,7 @@ void Level::Load(std::string mapFilePath, Player* player)
 			else if (tiles[i] == "p")
 			{
 				// Player
-				player->SetSpawnpoint(tileCoordinates);
+				player.SetSpawnpoint(tileCoordinates);
 			}
 
 			// Update the coordinates for the next tile
