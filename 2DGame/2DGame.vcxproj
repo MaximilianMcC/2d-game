@@ -152,6 +152,7 @@
     <ClCompile Include="assetManager.cpp" />
     <ClCompile Include="collisionHandler.cpp" />
     <ClCompile Include="crackedBricks.cpp" />
+    <ClCompile Include="debugger.cpp" />
     <ClCompile Include="door.cpp" />
     <ClCompile Include="dropDownPlatform.cpp" />
     <ClCompile Include="gameObject.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="assetManager.h" />
     <ClInclude Include="collisionHandler.h" />
     <ClInclude Include="crackedBricks.h" />
+    <ClInclude Include="debugger.h" />
     <ClInclude Include="door.h" />
     <ClInclude Include="dropDownPlatform.h" />
     <ClInclude Include="gameObject.h" />

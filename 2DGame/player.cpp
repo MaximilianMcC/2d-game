@@ -6,6 +6,7 @@
 #include "lava.h"
 #include "lever.h"
 #include "dropDownPlatform.h"
+#include "debugger.h"
 
 Player::Player()
 {
@@ -19,6 +20,12 @@ Player::Player()
 	// TODO: Do this in the H
 	Speed = 200.f;
 	JumpForce = 120.f;
+
+	Debugger::RegisterVariable(
+		&Speed, "Player speed",
+		sf::Keyboard::Key::P,
+		sf::Keyboard::Key::O
+	);
 }
 
 void Player::Update()

@@ -45,3 +45,4 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 - Down down with <kbd>S</kbd>/<kbd>↓</kbd>
 - Interact with <kbd>E</kbd>/<kbd>RShift</kbd>
 - Respawn with <kbd>R</kbd>/<kbd>Enter</kbd>
+- Open debug menu with <kbd>`</kbd>/<kbd>F3</kbd>
