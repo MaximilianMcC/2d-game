@@ -3,6 +3,9 @@
 #include "assetManager.h"
 #include "utils.h"
 
+float CrackedBricks::TimeBeforeBrickFalls = 2.f;
+float CrackedBricks::TimeBeforeBrickRespawns = 3.f;
+
 CrackedBricks::CrackedBricks(sf::Vector2f position)
 {
 	// Make the hitbox
@@ -36,14 +39,14 @@ void CrackedBricks::Update()
 	{
 		// Update the texture based on the crack time
 		// TODO: Don't hardcode
-		float crackProgress = timer / timeBeforeBrickFalls;
+		float crackProgress = timer / TimeBeforeBrickFalls;
 		if (crackProgress < 1.f / 3) shape.setTexture(AssetManager::GetTexture("cracked-bricks-1"));
 		else if (crackProgress < 2.f / 3) shape.setTexture(AssetManager::GetTexture("cracked-bricks-2"));
 		else shape.setTexture(AssetManager::GetTexture("cracked-bricks-3"));
 
 		// Check for if the brick has cracked and
 		// needs to begin falling
-		if (timer >= timeBeforeBrickFalls)
+		if (timer >= TimeBeforeBrickFalls)
 		{
 			cracked = true;
 			timer = 0;
@@ -57,7 +60,7 @@ void CrackedBricks::Update()
 	else
 	{
 		// Respawn if the time is right
-		if (timer >= timeBeforeBrickRespawns)
+		if (timer >= TimeBeforeBrickRespawns)
 		{
 			// Reset everything
 			beenSteppedOn = false;

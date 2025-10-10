@@ -4,6 +4,7 @@
 #include "level.h"
 #include "player.h"
 #include "debugger.h"
+#include "crackedBricks.h"
 
 Level level;
 Player player;
@@ -15,6 +16,21 @@ void Start()
 
 	level = Level();
 	level.Load("./assets/level/debug.txt", player);
+
+	// TODO: Do this in the player
+	Debugger::RegisterVariable(
+		&player.Speed, "Player speed",
+		sf::Keyboard::Key::P,
+		sf::Keyboard::Key::O
+	);
+
+	// TODO: Do this in the brick
+	Debugger::RegisterVariable(
+		&CrackedBricks::TimeBeforeBrickFalls, "time before brick falls",
+		sf::Keyboard::Key::L,
+		sf::Keyboard::Key::K,
+		0.01f
+	);
 }
 
 void Update()
