@@ -9,15 +9,20 @@
 
 Level level;
 Player player;
+sf::View camera;
 std::optional<sf::Text> winText;
 
 void Start()
 {
+	// Make the camera
+	camera = sf::View(Utils::GetWindow()->getDefaultView());
+	camera.zoom(0.8f);
+
 	// TODO: Just put the player in the level because this is confusing and slow as
 	player = Player();
 
 	level = Level();
-	level.Load("./assets/level/debug.txt", player);
+	level.Load("./assets/level/level1.txt", player);
 
 	// TODO: Do this in the player
 	Debugger::RegisterVariable(
@@ -58,6 +63,10 @@ void Draw()
 		Utils::GetWindow()->draw(winText.value());
 		return;
 	}
+
+	// Put the camera on the player
+	camera.setCenter(player.Hitbox.position);
+	Utils::GetWindow()->setView(camera);
 
 	// Otherwise draw everything else normally
 	level.Draw();
