@@ -43,6 +43,12 @@ public:
 	void Draw() override;
 };
 
+class EndTile : public Tile
+{
+public:
+	EndTile(sf::Vector2f position) : Tile("end", position, false) { }
+};
+
 class AnimatedTile : public StaticMapObject
 {
 private:

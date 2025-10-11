@@ -79,6 +79,14 @@ void Player::Update()
 		}
 	}
 
+	// Check for if we reach the end star thing
+	EndTile* endTile = dynamic_cast<EndTile*>(collision.Victim);
+	if (endTile != nullptr)
+	{
+		// Game ends
+		Level::Win = true;
+	}
+
 	// Update the players visual position
 	// based on their actual position
 	// TODO: Maybe put in Draw but also dont

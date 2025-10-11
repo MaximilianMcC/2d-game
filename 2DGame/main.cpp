@@ -5,9 +5,11 @@
 #include "player.h"
 #include "debugger.h"
 #include "crackedBricks.h"
+#include "numericalVectors.h"
 
 Level level;
 Player player;
+std::optional<sf::Text> winText;
 
 void Start()
 {
@@ -31,6 +33,15 @@ void Start()
 		sf::Keyboard::Key::K,
 		0.01f
 	);
+
+	// Make the win label
+	// TODO: Do in level
+	AssetManager::LoadDefaultFont("arial", "arial");
+	winText = sf::Text(*AssetManager::GetFont("arial"), "YOU WIN!\n", 60u);
+	sf::Text& text = winText.value();
+	text.setFillColor(sf::Color::White);
+	text.setOrigin(text.getLocalBounds().size / 2.0f);
+	text.setPosition(static_cast<sf::Vector2f>(Utils::GetWindow()->getSize()) / 2.0f);
 }
 
 void Update()
@@ -41,6 +52,14 @@ void Update()
 
 void Draw()
 {
+	// If we win draw the win screen
+	if (Level::Win)
+	{
+		Utils::GetWindow()->draw(winText.value());
+		return;
+	}
+
+	// Otherwise draw everything else normally
 	level.Draw();
 	player.Draw();
 }

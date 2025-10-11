@@ -18,7 +18,7 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
   - [x] One that damages the player
   - [x] One that blocks progress (e.g., door needing key)  
 - [x] Collision system prevents falling through world and triggers damage/restart
-- [ ] Debug window toggled by a key (e.g., `~` or `Esc`) to edit properties at runtime
+- [x] Debug window toggled by a key (e.g., `~` or `Esc`) to edit properties at runtime
 - [ ] Game has both **win** and **lose** states
 
 ## Advanced Features

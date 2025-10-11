@@ -14,6 +14,7 @@ public:
 	static std::vector<MapObject*> MapObjects;
 	static int Width;
 	static int Height;
+	static bool Win;
 
 	// TODO: Make static
 	void Load(std::string mapFilePath, Player& player);

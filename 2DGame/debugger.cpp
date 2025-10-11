@@ -9,7 +9,7 @@ void Debugger::InitWindow()
 	Window = sf::RenderWindow(sf::VideoMode({ 400, 200 }), "debugger");
 
 	// Load the font
-	AssetManager::LoadDefaultFont("arial", "arial");
+	AssetManager::LoadDefaultFont("consolas", "consola");
 }
 
 void Debugger::RegisterVariable(float *variablePointer, std::string variableName, sf::Keyboard::Key increimentKey, sf::Keyboard::Key decreimentKey, float adjustAmount)
@@ -18,7 +18,7 @@ void Debugger::RegisterVariable(float *variablePointer, std::string variableName
 	// value is and also change it easily
 	const float padding = 10.f;
 	const unsigned int fontSize = 16;
-	sf::Text label(*AssetManager::GetFont("arial"), "loading", fontSize);
+	sf::Text label(*AssetManager::GetFont("consolas"), "loading", fontSize);
 	label.setPosition(sf::Vector2f(padding, padding + ((padding + (fontSize * 2)) * variables.size())));
 	label.setFillColor(sf::Color::Black);
 	
