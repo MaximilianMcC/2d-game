@@ -11,12 +11,12 @@ private:
 	bool beenSteppedOn = false;
 	bool cracked = false;
 	float timer = 0.f;
+public:
 
 	// Settings
-	float timeBeforeBrickFalls = 2.f;
-	float timeBeforeBrickRespawns = 3.f;
+	static float TimeBeforeBrickFalls;
+	static float TimeBeforeBrickRespawns;
 
-public:
 	CrackedBricks(sf::Vector2f position);
 	void Update() override;
 

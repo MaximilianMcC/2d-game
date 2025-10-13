@@ -43,7 +43,7 @@ public:
 	static sf::Image* LoadAndGetImage(std::string key, std::string path);
 	static sf::Image* GetImage(std::string key);
 
-	static void LoadDefaultFont(std::string key, std::string path);
+	static void LoadDefaultFont(std::string key, std::string fontFileName);
 	static sf::Font* GetFont(std::string key);
 
 	static void LoadSound(std::string key, std::string path);

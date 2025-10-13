@@ -9,18 +9,21 @@
 #include "lava.h"
 #include "lever.h"
 #include "door.h"
+#include "dropDownPlatform.h"
 
 sf::Vector2f Level::TileSize = sf::Vector2f(16.f, 16.f);
 float Level::Gravity = 350.f;
 std::vector<MapObject*> Level::MapObjects;
 int Level::Width = 0;
 int Level::Height = 0;
+bool Level::Win = false;
 
 // TODO: Do not pass player in like this
 void Level::Load(std::string mapFilePath, Player& player)
 {
 	// Load the textures
 	AssetManager::LoadTexture("bricks", "./assets/sprite/bricks.png");
+	AssetManager::LoadTexture("end", "./assets/sprite/star.png");
 
 	// Open the file
 	std::ifstream mapFile(mapFilePath);
@@ -75,6 +78,16 @@ void Level::Load(std::string mapFilePath, Player& player)
 				// Door
 				MapObjects.push_back(new Door(tileCoordinates));
 			}
+			else if (tiles[i] == "v")
+			{
+				// Drop down platform
+				//? V because the platform is vertical
+				MapObjects.push_back(new DropDownPlatform(tileCoordinates));
+			}
+			else if (tiles[i] == "e")
+			{
+				MapObjects.push_back(new EndTile(tileCoordinates));
+			}
 			else if (tiles[i] == "p")
 			{
 				// Player
@@ -114,6 +127,7 @@ void Level::Update()
 // TODO: Take in a camera/view param
 void Level::Draw()
 {
+	// Otherwise draw the normal map
 	for (size_t i = 0; i < MapObjects.size(); i++)
 	{
 		MapObjects[i]->Draw();

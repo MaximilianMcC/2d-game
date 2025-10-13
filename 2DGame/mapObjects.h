@@ -6,7 +6,7 @@
 class MapObject {
 public:
 	sf::FloatRect Hitbox;
-	bool IsImpassable;
+	bool BlocksMovement;
 
 	virtual void Draw() = 0;
 };
@@ -21,7 +21,7 @@ class DynamicMapObject : public MapObject
 {
 protected:
 	sf::RectangleShape shape;
-	void CreateDefaultHitbox(sf::Vector2f position, bool impassable);
+	void CreateDefaultHitbox(sf::Vector2f position, bool blocksMovement);
 
 public:
 	virtual void Update() { }
@@ -41,6 +41,12 @@ private:
 public:
 	Tile(std::string textureKey, sf::Vector2f position, bool hasCollision);
 	void Draw() override;
+};
+
+class EndTile : public Tile
+{
+public:
+	EndTile(sf::Vector2f position) : Tile("end", position, false) { }
 };
 
 class AnimatedTile : public StaticMapObject

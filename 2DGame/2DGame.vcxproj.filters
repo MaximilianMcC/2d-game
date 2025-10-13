@@ -27,9 +27,6 @@
     <ClCompile Include="logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mapObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,6 +51,12 @@
     <ClCompile Include="door.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dropDownPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debugger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
@@ -66,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mapObjects.h">
@@ -93,6 +93,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="door.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dropDownPlatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debugger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

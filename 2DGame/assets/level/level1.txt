@@ -1,11 +1,11 @@
-w         w                     www
-w         w                     www
-w                               www
-w         d   p                kwww
-wwww   wwwwwwwwwww  c  c  c  wwwwww
-wwww   wwwwwwwwwww           wwwwww
-wwww   wwwwwwwwwww           wwwwww
-             wwwww           wwwwww
-             wwwwwlllllllllllwwwwww
-             wwwwwlllllllllllwwwwww
+wwww         w                  www
+wwww         w                  www
+wwww                            www
+wwww         d  p              kwww
+wwwwwwwvvvwwwwwwww  c  c  c  wwwwww
+wwwwwww   wwwwwwww           wwwwww
+wwwwwww   wwwwwwww           wwwwww
+ww              ww           wwwwww
+ww              wwlllllllllllwwwwww
+ww e            wwlllllllllllwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww

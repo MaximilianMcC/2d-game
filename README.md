@@ -12,14 +12,14 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 ## Basic Features
 - [x] Player can move left/right with Arrow keys **and** A/D keys
 - [x] Player can jump with Space / W / Up Arrow
-- [ ] Player can drop through certain platforms with S / Down Arrow
+- [x] Player can drop through certain platforms with S / Down Arrow
 - [x] At least **two types of platforms** (e.g., ground + moving/fall-through)
 - [x] At least **two enemies/obstacles**:
   - [x] One that damages the player
   - [x] One that blocks progress (e.g., door needing key)  
 - [x] Collision system prevents falling through world and triggers damage/restart
-- [ ] Debug window toggled by a key (e.g., `~` or `Esc`) to edit properties at runtime
-- [ ] Game has both **win** and **lose** states
+- [x] Debug window toggled by a key (e.g., `~` or `Esc`) to edit properties at runtime
+- [x] Game has both **win** and **lose** states
 
 ## Advanced Features
 - [x] Level loader using text files (multiple levels, consistent format)
@@ -42,5 +42,7 @@ mds d game sfml cpp something idk #let me use sfml 2 #let me use cs
 # Controls
 - Move left/right with <kbd>A</kbd>/<kbd>D</kbd> or <kbd>←</kbd>/<kbd>→</kbd>
 - Jump with <kbd>space</kbd>/<kbd>W</kbd>/<kbd>↑</kbd>
+- Down down with <kbd>S</kbd>/<kbd>↓</kbd>
 - Interact with <kbd>E</kbd>/<kbd>RShift</kbd>
 - Respawn with <kbd>R</kbd>/<kbd>Enter</kbd>
+- Open debug menu with <kbd>`</kbd>/<kbd>F3</kbd>

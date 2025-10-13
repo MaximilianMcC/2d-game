@@ -22,7 +22,7 @@ CollisionHandler::CollisionInfo CollisionHandler::SolveCollisionWithWorld(sf::Fl
 
 		// Check for if we want to adjust the
 		// new hitbox to not collide
-		if (thing->IsImpassable == false) continue;
+		if (thing->BlocksMovement == false) continue;
 
 		// Adjust to prevent the actual collision
 		if (direction.x < 0)
@@ -52,7 +52,7 @@ CollisionHandler::CollisionInfo CollisionHandler::SolveCollisionWithWorld(sf::Fl
 
 		// Check for if we want to adjust the
 		// new hitbox to not collide
-		if (thing->IsImpassable == false) continue;
+		if (thing->BlocksMovement == false) continue;
 
 		// Adjust to prevent the actual collision
 		if (direction.y < 0)

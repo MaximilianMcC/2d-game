@@ -5,6 +5,8 @@
 #include "crackedBricks.h"
 #include "lava.h"
 #include "lever.h"
+#include "dropDownPlatform.h"
+#include "debugger.h"
 
 Player::Player()
 {
@@ -64,6 +66,25 @@ void Player::Update()
 	{
 		// Make sure we press the use key
 		if (JustInteracted()) lever->Flip(); 
+	}
+
+	// Check for if we go down a platform
+	DropDownPlatform* platform = dynamic_cast<DropDownPlatform*>(collision.Victim);
+	if (platform != nullptr && collision.Bottom)
+	{
+		// Check for if we press the dropdown key
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+		{
+			platform->Drop();
+		}
+	}
+
+	// Check for if we reach the end star thing
+	EndTile* endTile = dynamic_cast<EndTile*>(collision.Victim);
+	if (endTile != nullptr)
+	{
+		// Game ends
+		Level::Win = true;
 	}
 
 	// Update the players visual position
